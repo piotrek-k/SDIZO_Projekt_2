@@ -32,6 +32,10 @@ void Container::LoadFromFile(std::string fileName)
 				int n = 0;
 				int values[] = { 0, 0, 0 };
 
+				if (line == "") {
+					break;
+				}
+
 				stream >> n;
 				values[0] = n;
 
