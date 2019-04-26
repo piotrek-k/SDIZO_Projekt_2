@@ -7,6 +7,7 @@ class AdjacencyMatrix :
 
 public:
 	AdjacencyMatrix();
+	AdjacencyMatrix(bool isDirected);
 	~AdjacencyMatrix();
 
 	void InsertNode(int initialNode, int endNode, int weight);

@@ -50,9 +50,14 @@ void ListMember::AddAtTheEnd(int number)
 		elem = elem->next;
 	}
 	
-	if (elem->IsNull) {
+	if (elem->IsNull()) {
 		elem->Build(number);
 	}
+}
+
+ListMember* ListMember::getNext()
+{
+	return this->next;
 }
 
 int ListMember::GetValue()

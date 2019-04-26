@@ -8,6 +8,7 @@ class AdjacencyList :
 
 public:
 	AdjacencyList();
+	AdjacencyList(bool isDirected);
 	~AdjacencyList();
 
 	void InsertNode(int initialNode, int endNode, int weight);

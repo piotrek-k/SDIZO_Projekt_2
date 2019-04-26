@@ -9,11 +9,12 @@ protected:
 	bool isDirected = false;
 public:
 	Container();
+	Container(bool isDirected);
 	~Container();
 
 	void LoadFromFile(std::string fileName);
 	virtual void InsertNode(int initialNode, int endNode, int weight) = 0;
-	virtual void DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam) = 0;
+	virtual void DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
 	virtual void Display(std::ostream& stream) = 0;
 };
 

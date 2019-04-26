@@ -7,6 +7,11 @@ AdjacencyMatrix::AdjacencyMatrix()
 {
 }
 
+AdjacencyMatrix::AdjacencyMatrix(bool isDirected)
+{
+	this->isDirected = isDirected;
+}
+
 
 AdjacencyMatrix::~AdjacencyMatrix()
 {
@@ -22,6 +27,9 @@ void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight)
 
 void AdjacencyMatrix::DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
 {
+	// wywo³anie metody z klasy bazowej
+	Container::DeclareSize(numberOfEdges, numberOfNodes, additionalParam);
+
 	//wype³nienie macierzy zerami
 
 	matrix = new int* [numberOfNodes];

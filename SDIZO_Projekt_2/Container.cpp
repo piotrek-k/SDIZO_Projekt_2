@@ -8,6 +8,11 @@ Container::Container()
 {
 }
 
+Container::Container(bool isDirected)
+{
+	this->isDirected = isDirected;
+}
+
 
 Container::~Container()
 {
@@ -61,4 +66,10 @@ void Container::LoadFromFile(std::string fileName)
 	catch (const exception & e) {
 		throw exception("Wystapil problem z wczytaniem danych z pliku");
 	}
+}
+
+void Container::DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
+{
+	this->numberOfEdges = numberOfEdges;
+	this->numberOfNodes = numberOfNodes;
 }

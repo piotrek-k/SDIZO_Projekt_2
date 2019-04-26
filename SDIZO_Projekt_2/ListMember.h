@@ -1,8 +1,8 @@
 #pragma once
 class ListMember
 {
-	int value;
-	ListMember* next;
+	int value = 0;
+	ListMember* next = nullptr;
 	//ListMember* prev;
 	bool initialized = false;
 	bool first = false;
@@ -17,6 +17,7 @@ public:
 	bool IsNotNull();
 	void Build(int value);
 	void AddAtTheEnd(int number);
+	ListMember* getNext();
 
 	int GetValue();
 };
