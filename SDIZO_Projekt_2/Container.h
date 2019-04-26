@@ -3,6 +3,10 @@
 
 class Container
 {
+protected:
+	int numberOfNodes = 0;
+	int numberOfEdges = 0;
+	bool isDirected = false;
 public:
 	Container();
 	~Container();

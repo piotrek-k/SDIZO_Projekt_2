@@ -1,13 +1,14 @@
 #pragma once
 #include "Container.h"
-class AdjacencyMatrix :
+#include "ListMember.h"
+class AdjacencyList :
 	public Container
 {
-	int** matrix = NULL;
+	ListMember** lists = NULL;
 
 public:
-	AdjacencyMatrix();
-	~AdjacencyMatrix();
+	AdjacencyList();
+	~AdjacencyList();
 
 	void InsertNode(int initialNode, int endNode, int weight);
 	void DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam);

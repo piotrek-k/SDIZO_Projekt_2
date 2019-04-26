@@ -1,15 +1,19 @@
 #include "ListMember.h"
 
+// Niezainicjalizowany element, bêd¹cy pocz¹tkiem listy
+ListMember::ListMember()
+{
+	value = 0;
+}
 
-// Konstruktor dla wartoœci pocz¹tkowych listy
+// Zainicjalizowany element, bêd¹cy pocz¹tkiem listy
 ListMember::ListMember(int value)
 {
 	first = true;
-	this->value = value;
-	next = new ListMember(this);
+	this->Build(value);
 }
 
-// Konstruktor tworz¹cy niezainicjalizowane nextValue
+// Niezainicjalizowany element, bêd¹cy kontynuacj¹ listy
 ListMember::ListMember(ListMember* prev)
 {
 	value = 0;
@@ -42,11 +46,16 @@ void ListMember::Build(int value)
 void ListMember::AddAtTheEnd(int number)
 {
 	ListMember* elem = this;
-	while (!elem->IsNull()) {
+	while (elem->IsNotNull()) {
 		elem = elem->next;
 	}
 	
 	if (elem->IsNull) {
 		elem->Build(number);
 	}
+}
+
+int ListMember::GetValue()
+{
+	return value;
 }

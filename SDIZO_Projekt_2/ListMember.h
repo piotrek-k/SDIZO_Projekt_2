@@ -3,11 +3,12 @@ class ListMember
 {
 	int value;
 	ListMember* next;
-	ListMember* prev;
+	//ListMember* prev;
 	bool initialized = false;
 	bool first = false;
 
 public:
+	ListMember();
 	ListMember(int value);
 	ListMember(ListMember * prev);
 	~ListMember();
@@ -16,5 +17,7 @@ public:
 	bool IsNotNull();
 	void Build(int value);
 	void AddAtTheEnd(int number);
+
+	int GetValue();
 };
 
