@@ -7,9 +7,8 @@ AdjacencyMatrix::AdjacencyMatrix()
 {
 }
 
-AdjacencyMatrix::AdjacencyMatrix(bool isDirected)
+AdjacencyMatrix::AdjacencyMatrix(bool isDirected) :Container(isDirected)
 {
-	this->isDirected = isDirected;
 }
 
 
