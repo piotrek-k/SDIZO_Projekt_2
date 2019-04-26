@@ -17,10 +17,10 @@ AdjacencyList::~AdjacencyList()
 
 void AdjacencyList::InsertNode(int initialNode, int endNode, int weight)
 {
-	lists[initialNode]->AddAtTheEnd(endNode);
+	lists[initialNode]->AddAtTheEnd(endNode, weight);
 
 	if (!this->isDirected) {
-		lists[endNode]->AddAtTheEnd(initialNode);
+		lists[endNode]->AddAtTheEnd(initialNode, weight);
 	}
 }
 

@@ -1,7 +1,9 @@
 #pragma once
 class ListMember
 {
-	int value = 0;
+	int key = 0; // id of connected node
+	int weight = 0;
+
 	ListMember* next = nullptr;
 	//ListMember* prev;
 	bool initialized = false;
@@ -9,14 +11,14 @@ class ListMember
 
 public:
 	ListMember();
-	ListMember(int value);
+	ListMember(int key, int weight);
 	ListMember(ListMember * prev);
 	~ListMember();
 
 	bool IsNull();
 	bool IsNotNull();
-	void Build(int value);
-	void AddAtTheEnd(int number);
+	void Build(int key,int weight);
+	void AddAtTheEnd(int number, int weight);
 	ListMember* getNext();
 
 	int GetValue();

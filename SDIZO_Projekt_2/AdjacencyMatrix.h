@@ -1,9 +1,10 @@
 #pragma once
 #include "Container.h"
+#include "MatrixMember.h"
 class AdjacencyMatrix :
 	public Container
 {
-	int** matrix = NULL;
+	MatrixMember** matrix = NULL;
 
 public:
 	AdjacencyMatrix();

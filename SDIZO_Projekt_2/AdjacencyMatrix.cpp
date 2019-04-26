@@ -18,9 +18,11 @@ AdjacencyMatrix::~AdjacencyMatrix()
 
 void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight)
 {
-	matrix[initialNode][endNode] = 1;
+	matrix[initialNode][endNode].connection = true;
+	matrix[initialNode][endNode].weight = weight;
 	if (!isDirected) {
-		matrix[endNode][initialNode] = 1;
+		matrix[endNode][initialNode].connection = 1;
+		matrix[endNode][initialNode].weight = weight;
 	}
 }
 
@@ -31,11 +33,11 @@ void AdjacencyMatrix::DeclareSize(int numberOfEdges, int numberOfNodes, int addi
 
 	//wype³nienie macierzy zerami
 
-	matrix = new int* [numberOfNodes];
+	matrix = new MatrixMember* [numberOfNodes];
 	for (int i = 0; i < numberOfNodes; i++) {
-		this->matrix[i] = new int [numberOfNodes];
+		this->matrix[i] = new MatrixMember[numberOfNodes];
 		for (int j = 0; j < numberOfNodes; j++) {
-			this->matrix[i][j] = 0;
+			this->matrix[i][j].connection = 0;
 		}
 	}
 
@@ -48,7 +50,7 @@ void AdjacencyMatrix::Display(std::ostream& stream)
 	stream << "Wyswietlanie macierzy sasiedztwa: " << endl;
 	for (int i = 0; i < numberOfNodes; i++) {
 		for (int j = 0; j < numberOfNodes; j++) {
-			stream << this->matrix[i][j] << "\t";
+			stream << this->matrix[i][j].connection << "(" << this->matrix[i][j].weight << ")" << "\t";
 		}
 		stream << endl;
 	}
