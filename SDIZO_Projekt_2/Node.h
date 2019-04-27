@@ -1,4 +1,5 @@
 #pragma once
+// reprezentuje wierzcho³ek lub informacje o krawêdzi
 class Node
 {
 public:

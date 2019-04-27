@@ -22,10 +22,10 @@ void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight)
 	}
 }
 
-void AdjacencyMatrix::DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
+void AdjacencyMatrix::declareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
 {
 	// wywo³anie metody z klasy bazowej
-	Container::DeclareSize(numberOfEdges, numberOfNodes, additionalParam);
+	Container::declareSize(numberOfEdges, numberOfNodes, additionalParam);
 
 	//wype³nienie macierzy zerami
 

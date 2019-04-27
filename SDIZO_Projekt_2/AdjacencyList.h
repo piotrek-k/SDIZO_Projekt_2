@@ -17,15 +17,14 @@ public:
 	~AdjacencyList();
 
 	void InsertNode(int initialNode, int endNode, int weight);
-	void DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
+	void declareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
 	void Display(std::ostream& stream);
 	Container* GenerateEmptyClone();
 
+	
 	Node* GetNode(int index);
 
+	// szuka minimalnego wierzcho³ka grafu
 	Node* LowestCostNeighbour(int index, bool canBeDisabled);
-
-	// Prim algorithm
-	//void GenerateMinTreePrim(int startingPoint);
 };
 

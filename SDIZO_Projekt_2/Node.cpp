@@ -10,6 +10,7 @@ Node::Node(int index, int weight)
 {
 	this->index = index;
 	this->weight = weight;
+	this->active = false;
 }
 
 Node::~Node()

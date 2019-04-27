@@ -3,7 +3,6 @@
 #include "Container.h"
 #include "AdjacencyList.h"
 #include "AdjacencyMatrix.h"
-#include "PrimAlgorithm.h"
 
 using namespace std;
 

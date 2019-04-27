@@ -4,12 +4,12 @@
 
 AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected) : Container(fileName, isDirected)
 {
-	this->LoadFromFile(fileName, isDirected);
+	this->loadFromFile(fileName, isDirected);
 }
 
 AdjacencyList::AdjacencyList(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected) :Container(numberOfEdges, numberOfNodes, additionalParam, isDirected)
 {
-	this->DeclareSize(numberOfEdges, numberOfNodes, additionalParam);
+	this->declareSize(numberOfEdges, numberOfNodes, additionalParam);
 	this->isDirected = isDirected;
 }
 
@@ -27,9 +27,9 @@ void AdjacencyList::InsertNode(int initialNode, int endNode, int weight)
 	}
 }
 
-void AdjacencyList::DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
+void AdjacencyList::declareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
 {
-	Container::DeclareSize(numberOfEdges, numberOfNodes, additionalParam);
+	Container::declareSize(numberOfEdges, numberOfNodes, additionalParam);
 
 	lists = new ListMember * [numberOfNodes];
 	for (int l = 0; l < numberOfNodes; l++) {

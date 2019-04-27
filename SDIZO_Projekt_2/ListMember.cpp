@@ -60,13 +60,3 @@ ListMember* ListMember::getNext()
 {
 	return this->next;
 }
-
-bool ListMember::isActive()
-{
-	return active == true;
-}
-
-int ListMember::getWeight()
-{
-	return weight;
-}

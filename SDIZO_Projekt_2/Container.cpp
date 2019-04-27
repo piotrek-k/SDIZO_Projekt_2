@@ -21,7 +21,7 @@ Container::~Container()
 {
 }
 
-void Container::LoadFromFile(const std::string& fileName, bool isDirected)
+void Container::loadFromFile(const std::string& fileName, bool isDirected)
 {
 	string line;
 	ifstream myfile(fileName);
@@ -54,7 +54,7 @@ void Container::LoadFromFile(const std::string& fileName, bool isDirected)
 				}
 
 				if (firstLine) {
-					this->DeclareSize(values[0], values[1], values[2]);
+					this->declareSize(values[0], values[1], values[2]);
 					firstLine = false;
 				}
 				else {
@@ -75,15 +75,11 @@ void Container::LoadFromFile(const std::string& fileName, bool isDirected)
 	}
 }
 
-void Container::DeclareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
+void Container::declareSize(int numberOfEdges, int numberOfNodes, int additionalParam)
 {
 	this->numberOfEdges = numberOfEdges;
 	this->numberOfNodes = numberOfNodes;
 	this->additionalParam = additionalParam;
-	this->nodesActivity = new bool[numberOfNodes];
-	for (int a = 0; a < numberOfNodes; a++) {
-		this->nodesActivity[a] = true;
-	}
 }
 
 int Container::GetNumberOfNodes()

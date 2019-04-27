@@ -45,9 +45,6 @@
     <ClCompile Include="MatrixMember.cpp">
       <Filter>Source Files\OtherDataStructures</Filter>
     </ClCompile>
-    <ClCompile Include="PrimAlgorithm.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Node.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -67,9 +64,6 @@
     </ClInclude>
     <ClInclude Include="MatrixMember.h">
       <Filter>Header Files\OtherDataStructures</Filter>
-    </ClInclude>
-    <ClInclude Include="PrimAlgorithm.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Node.h">
       <Filter>Header Files</Filter>
