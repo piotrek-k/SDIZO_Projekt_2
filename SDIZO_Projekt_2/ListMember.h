@@ -1,8 +1,12 @@
 #pragma once
-class ListMember
+#include "Node.h"
+
+class ListMember : public Node
 {
-	int key = 0; // id of connected node
-	int weight = 0;
+	//int index = 0; // id of connected node
+	//int weight = 0;
+
+	//bool active = true;
 
 	ListMember* next = nullptr;
 	//ListMember* prev;
@@ -11,16 +15,17 @@ class ListMember
 
 public:
 	ListMember();
-	ListMember(int key, int weight);
+	ListMember(int index, int weight);
 	ListMember(ListMember * prev);
 	~ListMember();
 
 	bool IsNull();
 	bool IsNotNull();
-	void Build(int key,int weight);
+	void Build(int index,int weight);
 	void AddAtTheEnd(int number, int weight);
 	ListMember* getNext();
 
-	int GetValue();
+	bool isActive();
+	int getWeight();
 };
 

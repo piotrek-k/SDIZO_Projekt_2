@@ -3,20 +3,20 @@
 // Niezainicjalizowany element, bêd¹cy pocz¹tkiem listy
 ListMember::ListMember()
 {
-	key = 0;
+	index = 0;
 }
 
 // Zainicjalizowany element, bêd¹cy pocz¹tkiem listy
-ListMember::ListMember(int key, int weight)
+ListMember::ListMember(int index, int weight)
 {
 	first = true;
-	this->Build(key, weight);
+	this->Build(index, weight);
 }
 
 // Niezainicjalizowany element, bêd¹cy kontynuacj¹ listy
 ListMember::ListMember(ListMember* prev)
 {
-	key = 0;
+	index = 0;
 	if (!prev->IsNull()) {
 		next = new ListMember(this);
 	}
@@ -36,11 +36,11 @@ bool ListMember::IsNotNull()
 	return initialized == true;
 }
 
-void ListMember::Build(int key, int weight)
+void ListMember::Build(int index, int weight)
 {
 	initialized = true;
 	next = new ListMember(this);
-	this->key = key;
+	this->index = index;
 	this->weight = weight;
 }
 
@@ -61,7 +61,12 @@ ListMember* ListMember::getNext()
 	return this->next;
 }
 
-int ListMember::GetValue()
+bool ListMember::isActive()
 {
-	return key;
+	return active == true;
+}
+
+int ListMember::getWeight()
+{
+	return weight;
 }

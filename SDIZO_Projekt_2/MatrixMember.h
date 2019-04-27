@@ -1,5 +1,7 @@
 #pragma once
-class MatrixMember
+#include "Node.h"
+
+class MatrixMember : Node
 {
 public:
 	MatrixMember();

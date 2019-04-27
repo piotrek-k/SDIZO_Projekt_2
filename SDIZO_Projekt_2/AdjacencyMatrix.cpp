@@ -3,11 +3,7 @@
 
 using namespace std;
 
-AdjacencyMatrix::AdjacencyMatrix()
-{
-}
-
-AdjacencyMatrix::AdjacencyMatrix(bool isDirected) :Container(isDirected)
+AdjacencyMatrix::AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected) :Container(numberOfEdges, numberOfNodes, additionalParam, isDirected)
 {
 }
 
@@ -54,4 +50,9 @@ void AdjacencyMatrix::Display(std::ostream& stream)
 		}
 		stream << endl;
 	}
+}
+
+Node* AdjacencyMatrix::LowestCostNeighbour(int index, bool canBeDisabled)
+{
+	return new Node(-1, -1);
 }

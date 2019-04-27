@@ -156,6 +156,8 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="ListMember.cpp" />
     <ClCompile Include="MatrixMember.cpp" />
+    <ClCompile Include="Node.cpp" />
+    <ClCompile Include="PrimAlgorithm.cpp" />
     <ClCompile Include="SDIZO_Projekt_2.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -164,6 +166,8 @@
     <ClInclude Include="Container.h" />
     <ClInclude Include="ListMember.h" />
     <ClInclude Include="MatrixMember.h" />
+    <ClInclude Include="Node.h" />
+    <ClInclude Include="PrimAlgorithm.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
