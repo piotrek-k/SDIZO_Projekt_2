@@ -2,15 +2,16 @@
 
 #include <iostream>
 
-AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected) : Container(fileName, isDirected)
-{
+AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected){
 	this->loadFromFile(fileName, isDirected);
+	generateNodeStorage();
 }
 
-AdjacencyList::AdjacencyList(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected) :Container(numberOfEdges, numberOfNodes, additionalParam, isDirected)
+AdjacencyList::AdjacencyList(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected)
 {
 	this->declareSize(numberOfEdges, numberOfNodes, additionalParam);
 	this->isDirected = isDirected;
+	generateNodeStorage();
 }
 
 
@@ -57,17 +58,10 @@ Container* AdjacencyList::GenerateEmptyClone()
 	return new AdjacencyList(this->GetNumberOfEdges(), this->GetNumberOfNodes(), this->GetAdditionalParam(), this->isDirected);
 }
 
-Node* AdjacencyList::GetNode(int index)
-{
-	return (Node*)lists[index];
-}
-
 Node* AdjacencyList::LowestCostNeighbour(int index, bool canBeDisabled)
 {
 	ListMember* elem = lists[index];
-	//int lowestCost = elem->getWeight();
 	Node* lowestCostElem = NULL;
-	//int lowestCostElemIndex = elem->GetKey();
 
 	while (elem->IsNotNull()) {
 		if (canBeDisabled || !this->GetNode(elem->getIndex())->isActive()) {
@@ -80,11 +74,11 @@ Node* AdjacencyList::LowestCostNeighbour(int index, bool canBeDisabled)
 	}
 
 	if (lowestCostElem == NULL) {
-		return new Node(-1, -1);
+		return new Node(EMPTY);
 	}
 
 	if (!canBeDisabled && this->GetNode(lowestCostElem->getIndex())->isActive() == true) {
-		return new Node(-1, -1);
+		return new Node(EMPTY);
 	}
 
 	return lowestCostElem;

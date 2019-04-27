@@ -17,6 +17,14 @@ int main()
 	al->RunPrimSaveElsewhere(0, output);
 	output->Display(cout);
 
+	AdjacencyMatrix* am = new AdjacencyMatrix("dane_z_eduinf.txt", true);
+	am->Display(cout);
+
+	std::cout << "AdjacencyList Prim alg: \n";
+	AdjacencyMatrix* output_m = (AdjacencyMatrix*)am->GenerateEmptyClone();
+	am->RunPrimSaveElsewhere(0, output_m);
+	output_m->Display(cout);
+
 	/*std::cout << "directed AdjacencyList: \n";
 	al = new AdjacencyList(true);
 	al->LoadFromFile("dane_droga.txt");

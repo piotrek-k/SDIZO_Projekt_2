@@ -5,8 +5,9 @@ class AdjacencyMatrix :
 	public Container
 {
 	MatrixMember** matrix = NULL;
-
+	
 public:
+	AdjacencyMatrix(const std::string& fileName, bool isDirected);
 	AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);
 	~AdjacencyMatrix();
 
@@ -15,5 +16,7 @@ public:
 	void Display(std::ostream& stream);
 
 	Node* LowestCostNeighbour(int index, bool canBeDisabled);
+
+	Container* GenerateEmptyClone();
 };
 

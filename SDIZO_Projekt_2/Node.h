@@ -7,10 +7,12 @@ class Node
 {
 private:
 	bool nullNode = false; // zak³adamy ¿e wierzcho³ek zawiera dane
-	int index = 0;
-	int weight = 0;
-	bool active = false;
+	
 public:
+	int weight = 0;
+	int index = 0;
+	bool active = false;
+
 	Node();
 	Node(NodeType isNull);
 	Node(int index, int weight);

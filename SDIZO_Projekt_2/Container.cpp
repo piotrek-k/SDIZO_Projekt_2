@@ -95,6 +95,19 @@ int Container::GetAdditionalParam()
 	return additionalParam;
 }
 
+Node* Container::GetNode(int index)
+{
+	return stateOfNodes[index];
+}
+
+void Container::generateNodeStorage()
+{
+	stateOfNodes = new Node * [numberOfNodes];
+	for (int a = 0; a < numberOfNodes; a++) {
+		stateOfNodes[a] = new Node();
+	}
+}
+
 void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
 	int numOfIterations = 0;
 	this->GetNode(startingPoint)->setActiveState(true);

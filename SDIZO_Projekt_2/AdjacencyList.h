@@ -21,8 +21,6 @@ public:
 	void Display(std::ostream& stream);
 	Container* GenerateEmptyClone();
 
-	
-	Node* GetNode(int index);
 
 	// szuka minimalnego wierzcho³ka grafu
 	Node* LowestCostNeighbour(int index, bool canBeDisabled);

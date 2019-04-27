@@ -3,10 +3,18 @@
 
 using namespace std;
 
-AdjacencyMatrix::AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected) :Container(numberOfEdges, numberOfNodes, additionalParam, isDirected)
+AdjacencyMatrix::AdjacencyMatrix(const std::string& fileName, bool isDirected)
 {
+	this->loadFromFile(fileName, isDirected);
+	generateNodeStorage();
 }
 
+AdjacencyMatrix::AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected)
+{
+	this->declareSize(numberOfEdges, numberOfNodes, additionalParam);
+	this->isDirected = isDirected;
+	generateNodeStorage();
+}
 
 AdjacencyMatrix::~AdjacencyMatrix()
 {
@@ -54,5 +62,30 @@ void AdjacencyMatrix::Display(std::ostream& stream)
 
 Node* AdjacencyMatrix::LowestCostNeighbour(int index, bool canBeDisabled)
 {
-	return new Node(-1, -1);
+	MatrixMember* row = matrix[index];
+	Node* lowestCostElem = NULL;
+
+	for (int a = 0; a < GetNumberOfNodes(); a++) {
+		MatrixMember* elem = &row[a];
+		if (canBeDisabled || !this->GetNode(elem->getIndex())->isActive()) {
+			if (lowestCostElem == NULL || elem->getWeight() < lowestCostElem->getWeight()) {
+				lowestCostElem = (Node*)elem;
+			}
+		}
+	}
+
+	if (lowestCostElem == NULL) {
+		return new Node(EMPTY);
+	}
+
+	if (!canBeDisabled && this->GetNode(lowestCostElem->getIndex())->isActive() == true) {
+		return new Node(EMPTY);
+	}
+
+	return lowestCostElem;
+}
+
+Container* AdjacencyMatrix::GenerateEmptyClone()
+{
+	return new AdjacencyMatrix(this->GetNumberOfEdges(), this->GetNumberOfNodes(), this->GetAdditionalParam(), this->isDirected);
 }

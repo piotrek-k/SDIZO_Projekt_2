@@ -13,7 +13,8 @@ protected:
 	bool isDirected = false;
 	void loadFromFile(const std::string& fileName, bool isDirected);
 	virtual void declareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
-	
+	void generateNodeStorage();
+	Node** stateOfNodes = NULL;
 public:
 	/*Container(const std::string& fileName, bool isDirected);
 	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/
@@ -30,7 +31,7 @@ public:
 	int GetAdditionalParam();
 
 	// zwraca informacjê o podanym wierzcho³ku grafu
-	virtual Node* GetNode(int index) = 0;
+	Node* GetNode(int index);
 
 	// szuka minimalnego wierzcho³ka grafu
 	virtual Node* LowestCostNeighbour(int index, bool canBeDisabled) = 0;
