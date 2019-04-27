@@ -6,15 +6,13 @@
 
 using namespace std;
 
-Container::Container(const std::string& fileName, bool isDirected)
-{
-}
-
-Container::Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected)
-{
-	/*this->DeclareSize(numberOfEdges, numberOfNodes, additionalParam);
-	this->isDirected = isDirected;*/
-}
+//Container::Container(const std::string& fileName, bool isDirected)
+//{
+//}
+//
+//Container::Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected)
+//{
+//}
 
 
 Container::~Container()
@@ -99,18 +97,18 @@ int Container::GetAdditionalParam()
 
 void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
 	int numOfIterations = 0;
-	this->GetNode(startingPoint)->active = true;
+	this->GetNode(startingPoint)->setActiveState(true);
 
 	while (true) { //numOfIterations < this->GetNumberOfNodes()
-		Node minNodeToDisable = Node(-1, -1);
+		Node minNodeToDisable = Node(EMPTY);
 		int sourceNodeIndex = -1;
 		int numNodes = this->GetNumberOfNodes();
 		for (int a = 0; a < this->GetNumberOfNodes(); a++) {
-			if (this->GetNode(a)->active == true) {
+			if (this->GetNode(a)->isActive() == true) {
 				// ten wêze³ by³ ju¿ dodany, szukamy najmniejszej wagi wœród s¹siadów
 				Node n = *this->LowestCostNeighbour(a, false);
-				if (minNodeToDisable.index == -1 || minNodeToDisable.weight > n.weight) {
-					if (n.index != -1) {
+				if (minNodeToDisable.isNull() || minNodeToDisable.getWeight() > n.getWeight()) {
+					if (n.isNotNull()) {
 						minNodeToDisable = n;
 						sourceNodeIndex = a;
 					}
@@ -118,9 +116,9 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 			}
 		}
 
-		if (minNodeToDisable.index != -1) {
-			targetContainer->InsertNode(sourceNodeIndex, minNodeToDisable.index, minNodeToDisable.weight);
-			this->GetNode(minNodeToDisable.index)->active = true;
+		if (minNodeToDisable.isNotNull()) {
+			targetContainer->InsertNode(sourceNodeIndex, minNodeToDisable.getIndex(), minNodeToDisable.getWeight());
+			this->GetNode(minNodeToDisable.getIndex())->setActiveState(true);
 		}
 		else {
 			//throw exception("Proba dodania nieprawidlowego indeksu");

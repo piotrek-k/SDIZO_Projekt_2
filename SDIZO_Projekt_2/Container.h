@@ -15,8 +15,8 @@ protected:
 	virtual void declareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
 	
 public:
-	Container(const std::string& fileName, bool isDirected);
-	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);
+	/*Container(const std::string& fileName, bool isDirected);
+	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/
 	~Container();
 
 	virtual void InsertNode(int initialNode, int endNode, int weight) = 0;

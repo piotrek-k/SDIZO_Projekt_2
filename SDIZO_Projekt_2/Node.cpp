@@ -6,6 +6,12 @@ Node::Node() {
 	this->active = false;
 }
 
+Node::Node(NodeType type)
+{
+	Node::Node();
+	this->nullNode = (type == EMPTY);
+}
+
 Node::Node(int index, int weight)
 {
 	this->index = index;
@@ -22,6 +28,11 @@ bool Node::isActive()
 	return active == true;
 }
 
+void Node::setActiveState(bool active)
+{
+	this->active = active;
+}
+
 int Node::getWeight()
 {
 	return weight;
@@ -30,4 +41,14 @@ int Node::getWeight()
 int Node::getIndex()
 {
 	return index;
+}
+
+bool Node::isNull()
+{
+	return nullNode == true;
+}
+
+bool Node::isNotNull()
+{
+	return nullNode == false;
 }
