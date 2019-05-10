@@ -27,7 +27,7 @@ int main()
 	output_m->Display(cout);*/
 
 	std::cout << "directed AdjacencyList: \n";
-	AdjacencyList* al = new AdjacencyList("dijkstra_dane_z_eduinf.txt", true);
+	AdjacencyMatrix* al = new AdjacencyMatrix("dijkstra_dane_z_eduinf.txt", true);
 	al->Display(cout);
 
 	std::cout << "AdjacencyList dijkstra alg: \n";

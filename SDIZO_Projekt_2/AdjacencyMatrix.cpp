@@ -87,7 +87,18 @@ Node* AdjacencyMatrix::LowestCostNeighbour(int index, bool canBeDisabled)
 
 ListMember* AdjacencyMatrix::GetAllNeighbours(int nodeId)
 {
-	return NULL; //matrix[nodeId];
+	ListMember* lm = NULL;
+	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
+		if (matrix[nodeId][a].connection) {
+			if (lm == NULL) {
+				lm = new ListMember(a, matrix[nodeId][a].weight);
+			}
+			else {
+				lm->AddAtTheEnd(a, matrix[nodeId][a].weight);
+			}
+		}
+	}
+	return lm;
 }
 
 Container* AdjacencyMatrix::GenerateEmptyClone()
