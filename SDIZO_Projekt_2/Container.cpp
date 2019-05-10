@@ -106,11 +106,13 @@ void Container::generateNodeStorage()
 {
 	stateOfNodes = new Node * [numberOfNodes];
 	for (int a = 0; a < numberOfNodes; a++) {
-		stateOfNodes[a] = new Node();
+		stateOfNodes[a] = new Node(SPECIFIED);
 	}
 }
 
 void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
+	RefreshActivityOfNodes();
+	
 	int numOfIterations = 0;
 	this->GetNode(startingPoint)->setActiveState(true);
 
@@ -122,8 +124,8 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 			if (this->GetNode(a)->isActive() == true) {
 				// ten wêze³ by³ ju¿ dodany, szukamy najmniejszej wagi wœród s¹siadów
 				Node n = *this->LowestCostNeighbour(a, false);
-				if (minNodeToDisable.isNull() || minNodeToDisable.getWeight() > n.getWeight()) {
-					if (n.isNotNull()) {
+				if (minNodeToDisable.IsNull() || minNodeToDisable.getWeight() > n.getWeight()) {
+					if (n.IsNotNull()) {
 						minNodeToDisable = n;
 						sourceNodeIndex = a;
 					}
@@ -131,7 +133,7 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 			}
 		}
 
-		if (minNodeToDisable.isNotNull()) {
+		if (minNodeToDisable.IsNotNull()) {
 			targetContainer->InsertNode(sourceNodeIndex, minNodeToDisable.getIndex(), minNodeToDisable.getWeight());
 			this->GetNode(minNodeToDisable.getIndex())->setActiveState(true);
 		}
@@ -185,7 +187,7 @@ DijkstraContainer* Container::RunDijkstra(std::ostream& stream, int startingPoin
 		ListMember* neighbourToCheck = this->GetAllNeighbours(minIndex);
 
 		while (true) {
-			if (neighbourToCheck->ListMember::IsNotNull() && neighbourToCheck != NULL) {
+			if (neighbourToCheck->IsNotNull() && neighbourToCheck != NULL) {
 				if (!this->GetNode(neighbourToCheck->index)->active) {
 					// nie ma go w zbiorze Q		
 					if (d[neighbourToCheck->index] > d[minIndex] + neighbourToCheck->weight) {

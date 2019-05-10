@@ -9,7 +9,7 @@ using namespace std;
 
 int main()
 {
-    /*std::cout << "non directed AdjacencyList: \n"; 
+    std::cout << "non directed AdjacencyList: \n"; 
 	AdjacencyList* al = new AdjacencyList("dane_z_eduinf.txt", true);
 	al->Display(cout);
 
@@ -24,14 +24,14 @@ int main()
 	std::cout << "AdjacencyList Prim alg: \n";
 	AdjacencyMatrix* output_m = (AdjacencyMatrix*)am->GenerateEmptyClone();
 	am->RunPrimSaveElsewhere(0, output_m);
-	output_m->Display(cout);*/
+	output_m->Display(cout);
 
-	std::cout << "directed AdjacencyList: \n";
+	/*std::cout << "directed AdjacencyList: \n";
 	AdjacencyMatrix* al = new AdjacencyMatrix("dijkstra_dane_z_eduinf.txt", true);
 	al->Display(cout);
 
 	std::cout << "AdjacencyList dijkstra alg: \n";
-	DijkstraContainer* dc = al->RunDijkstra(cout, 0);
+	DijkstraContainer* dc = al->RunDijkstra(cout, 0);*/
 
 
 	/*std::cout << "directed AdjacencyList: \n";

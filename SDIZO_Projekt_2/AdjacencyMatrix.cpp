@@ -24,9 +24,11 @@ void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight)
 {
 	matrix[initialNode][endNode].connection = true;
 	matrix[initialNode][endNode].weight = weight;
+	matrix[initialNode][endNode].initialized = true;
 	if (!isDirected) {
 		matrix[endNode][initialNode].connection = 1;
 		matrix[endNode][initialNode].weight = weight;
+		matrix[endNode][initialNode].initialized = true;
 	}
 }
 
@@ -67,9 +69,12 @@ Node* AdjacencyMatrix::LowestCostNeighbour(int index, bool canBeDisabled)
 
 	for (int a = 0; a < GetNumberOfNodes(); a++) {
 		MatrixMember* elem = &row[a];
-		if (canBeDisabled || !this->GetNode(elem->getIndex())->isActive()) {
-			if (lowestCostElem == NULL || elem->getWeight() < lowestCostElem->getWeight()) {
+		if (canBeDisabled || !this->GetNode(a)->isActive()) {
+			if (lowestCostElem == NULL || (elem->getWeight() < lowestCostElem->getWeight() && elem->connection)) {
 				lowestCostElem = (Node*)elem;
+				if (lowestCostElem->index != a) {
+					lowestCostElem->index = a;
+				}
 			}
 		}
 	}

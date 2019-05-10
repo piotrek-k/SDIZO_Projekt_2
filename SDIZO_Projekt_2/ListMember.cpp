@@ -1,4 +1,5 @@
 #include "ListMember.h"
+#include "Node.h"
 
 // Niezainicjalizowany element, bêd¹cy pocz¹tkiem listy
 ListMember::ListMember()
@@ -24,16 +25,6 @@ ListMember::ListMember(ListMember* prev)
 
 ListMember::~ListMember()
 {
-}
-
-bool ListMember::IsNull()
-{
-	return initialized == false;
-}
-
-bool ListMember::IsNotNull()
-{
-	return initialized == true;
 }
 
 void ListMember::Build(int index, int weight)

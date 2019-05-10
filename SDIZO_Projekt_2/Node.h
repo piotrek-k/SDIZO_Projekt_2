@@ -6,9 +6,8 @@ enum NodeType {
 class Node
 {
 private:
-	bool nullNode = false; // zak³adamy ¿e wierzcho³ek zawiera dane
-	
 public:
+	bool initialized = false;
 	int weight = 0;
 	int index = 0;
 	bool active = false;
@@ -23,7 +22,7 @@ public:
 	int getWeight();
 	int getIndex();
 
-	bool isNull();
-	bool isNotNull();
+	bool IsNull();
+	bool IsNotNull();
 };
 
