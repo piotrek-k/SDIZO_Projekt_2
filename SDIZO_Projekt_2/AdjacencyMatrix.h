@@ -1,6 +1,7 @@
 #pragma once
 #include "Container.h"
 #include "MatrixMember.h"
+#include "ListMember.h"
 class AdjacencyMatrix :
 	public Container
 {
@@ -16,6 +17,7 @@ public:
 	void Display(std::ostream& stream);
 
 	Node* LowestCostNeighbour(int index, bool canBeDisabled);
+	ListMember* GetAllNeighbours(int nodeId);
 
 	Container* GenerateEmptyClone();
 };

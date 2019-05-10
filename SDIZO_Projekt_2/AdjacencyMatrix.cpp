@@ -85,6 +85,11 @@ Node* AdjacencyMatrix::LowestCostNeighbour(int index, bool canBeDisabled)
 	return lowestCostElem;
 }
 
+ListMember* AdjacencyMatrix::GetAllNeighbours(int nodeId)
+{
+	return NULL; //matrix[nodeId];
+}
+
 Container* AdjacencyMatrix::GenerateEmptyClone()
 {
 	return new AdjacencyMatrix(this->GetNumberOfEdges(), this->GetNumberOfNodes(), this->GetAdditionalParam(), this->isDirected);

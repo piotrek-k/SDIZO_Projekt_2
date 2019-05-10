@@ -83,3 +83,8 @@ Node* AdjacencyList::LowestCostNeighbour(int index, bool canBeDisabled)
 
 	return lowestCostElem;
 }
+
+ListMember* AdjacencyList::GetAllNeighbours(int nodeId)
+{
+	return lists[nodeId];
+}

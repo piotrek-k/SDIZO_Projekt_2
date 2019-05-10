@@ -6,6 +6,8 @@
 
 using namespace std;
 
+const int MAXINT = 2147483647;
+
 //Container::Container(const std::string& fileName, bool isDirected)
 //{
 //}
@@ -139,5 +141,103 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 		}
 
 		numOfIterations++;
+	}
+}
+
+DijkstraContainer* Container::RunDijkstra(std::ostream& stream, int startingPoint)
+{
+	RefreshActivityOfNodes();
+	// wartoœæ "active" w ka¿dym Node okreœla w którym podzbiorze znajduje siê wierzcho³ek
+	// zbiór Q - false (wartoœæ domyœlna, zbiór wierzcho³ków do sprawdzenia)
+	// zbiór S - true (zbiór wierzcho³ków sprawdzonych)
+
+	int* d = new int[this->GetNumberOfNodes()]; // koszty dojœcia z 'u' do startingPoint
+	int* p = new int[this->GetNumberOfNodes()]; // p[u] - wierzcho³ek bêd¹cy nastêpnym krokiem w kierunku startingPoint
+
+	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
+		d[a] = MAXINT;
+		p[a] = -1;
+	}
+
+	// wierzcho³ek pocz¹tkowy
+	//this->GetNode(startingPoint)->active = true;
+	d[startingPoint] = 0;
+
+	for (int w = 0; w < this->GetNumberOfNodes(); w++) {
+		// znajdŸ najmniejsz¹ wartoœæ w tablicy d, która odpowiada wierzcho³kowi w zbiorze Q
+		int minVal = MAXINT;
+		int minIndex = -1;
+		for (int x = 0; x < this->GetNumberOfNodes(); x++) {
+			if (d[x] < minVal && this->GetNode(x)->active == false) {
+				minVal = d[x];
+				minIndex = x;
+			}
+		}
+
+		if (minIndex == -1) {
+			//throw exception("Wystapila nieprzewidziana sytuacja. Brak wierzcholka do przeniesienia z Q do S.");
+			break;
+		}
+		else {
+			this->GetNode(minIndex)->active = true; // przeniesienie wierzcho³ka do S
+		}
+
+		ListMember* neighbourToCheck = this->GetAllNeighbours(minIndex);
+
+		while (true) {
+			if (neighbourToCheck->ListMember::IsNotNull() && neighbourToCheck != NULL) {
+				if (!this->GetNode(neighbourToCheck->index)->active) {
+					// nie ma go w zbiorze Q		
+					if (d[neighbourToCheck->index] > d[minIndex] + neighbourToCheck->weight) {
+						d[neighbourToCheck->index] = d[minIndex] + neighbourToCheck->weight;
+						p[neighbourToCheck->index] = minIndex;
+					}
+				}
+
+				neighbourToCheck = neighbourToCheck->getNext();
+			}
+			else {
+				break;
+			}
+		}
+
+	}
+
+	stream << "d: ";
+	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
+		stream << d[a] << " ";
+	}
+	stream << endl;
+
+	stream << "p: ";
+	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
+		stream << p[a] << " ";
+	}
+	stream << endl;
+
+	// wyniki
+	int* stos = new int[this->GetNumberOfNodes()];
+	int stos_wsk = 0;
+	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
+		stream << a << ": ";
+
+		for (int j = a; j > -1; j = p[j]) {
+			stos[stos_wsk++] = j;
+		}
+		while (stos_wsk) stream << stos[--stos_wsk] << " ";
+		stream << "$" << d[a] << endl;
+	}
+
+	DijkstraContainer* dc = new DijkstraContainer();
+	dc->minCostTable = d;
+	dc->prevStepsTable = p;
+
+	return dc;
+}
+
+void Container::RefreshActivityOfNodes()
+{
+	for (int a = 0; a < GetNumberOfNodes(); a++) {
+		stateOfNodes[a]->setActiveState(false);
 	}
 }

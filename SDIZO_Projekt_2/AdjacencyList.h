@@ -24,5 +24,8 @@ public:
 
 	// szuka minimalnego wierzcho³ka grafu
 	Node* LowestCostNeighbour(int index, bool canBeDisabled);
+	
+	// zwraca s¹siaduj¹ce wierzcho³ki
+	ListMember* GetAllNeighbours(int nodeId);
 };
 

@@ -163,6 +163,7 @@
     <ClInclude Include="AdjacencyList.h" />
     <ClInclude Include="AdjacencyMatrix.h" />
     <ClInclude Include="Container.h" />
+    <ClInclude Include="DijkstraContainer.h" />
     <ClInclude Include="ListMember.h" />
     <ClInclude Include="MatrixMember.h" />
     <ClInclude Include="Node.h" />

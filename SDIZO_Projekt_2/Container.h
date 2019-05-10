@@ -1,6 +1,8 @@
 #pragma once
 #include <string>
 #include "Node.h"
+#include "DijkstraContainer.h"
+#include "ListMember.h"
 
 class Container
 {
@@ -20,7 +22,9 @@ public:
 	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/
 	~Container();
 
+	// Utwórz po³¹czenie miêdzy wêz³em initialNode a wêz³em endNode o wadze weight
 	virtual void InsertNode(int initialNode, int endNode, int weight) = 0;
+	// Wyœwietl zawartoœæ kontenera
 	virtual void Display(std::ostream& stream) = 0;
 
 	//generuje Kontener o wielkoœci obecnego Kontenera
@@ -33,10 +37,16 @@ public:
 	// zwraca informacjê o podanym wierzcho³ku grafu
 	Node* GetNode(int index);
 
-	// szuka minimalnego wierzcho³ka grafu
+	// zwraca s¹siada danego wierzcho³ka, po³¹czonego krawêdzi¹ o najmniejszym koszcie
 	virtual Node* LowestCostNeighbour(int index, bool canBeDisabled) = 0;
+
+	virtual ListMember* GetAllNeighbours(int nodeId) = 0;
 
 	// uruchamia algorytm Prima, zapisuje wynik w podanym Kontenerze
 	void RunPrimSaveElsewhere(int startingPoint, Container* targetContainer);
+
+	DijkstraContainer* RunDijkstra(std::ostream& stream, int startingPoint);
+
+	void RefreshActivityOfNodes();
 };
 
