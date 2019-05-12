@@ -156,6 +156,7 @@
     <ClCompile Include="Container.cpp" />
     <ClCompile Include="ListMember.cpp" />
     <ClCompile Include="MatrixMember.cpp" />
+    <ClCompile Include="Measurements.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="SDIZO_Projekt_2.cpp" />
   </ItemGroup>

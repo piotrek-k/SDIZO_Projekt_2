@@ -66,7 +66,7 @@ void generateRandomGraph(int numberOfNodes, int density, AdjacencyList*& al, Adj
 
 	// generowanie drzewa rozpinajacego
 	for (int n = 0; n < numberOfNodes - 1 && edgesToCreate > 0; n++) {
-		int newWeight = (rand() % weightRange)+1;
+		int newWeight = (rand() % weightRange) + 1;
 		al->InsertNode(n, n + 1, newWeight);
 		am->InsertNode(n, n + 1, newWeight);
 		edgesToCreate--;
@@ -81,100 +81,41 @@ void generateRandomGraph(int numberOfNodes, int density, AdjacencyList*& al, Adj
 			randomNode2 = (rand() % numberOfNodes);
 		} while (am->DoesConnectionExist(randomNode1, randomNode2) || randomNode1 == randomNode2);
 
-		int newWeight = (rand() % weightRange)+1;
+		int newWeight = (rand() % weightRange) + 1;
 		al->InsertNode(randomNode1, randomNode2, newWeight);
 		am->InsertNode(randomNode1, randomNode2, newWeight);
 	}
 }
 
-void menu_prim() {
-	char opt; //wybrana opcja
+int main()
+{
 	string fileName; //nazwa pliku wpisana przez u¿ytkownika
 	bool directed; // czy wczytany graf jest skierowany?
 	int numberOfNodes; // ile wêz³ów ma mieæ losowy graf?
 	int density; // jaka gêstoœæ grafu?
 	AdjacencyList* al = new AdjacencyList();
 	AdjacencyMatrix* am = new AdjacencyMatrix();
+	AdjacencyList* output_list = new AdjacencyList();
+	AdjacencyMatrix* output_matrix = new AdjacencyMatrix();
+	char option;
 
 	do {
 		try {
-			displayMenu("Algorytm Prima");
-			cin >> opt;
 			cout << endl;
-			switch (opt) {
-			case '1':
-				// Wczytaj z pliku
+			cout << "==== MENU GLOWNE ===" << endl;
+			cout << "1.Wczytaj wartosci" << endl;
+			cout << "2.Utworz graf losowy" << endl;
+			cout << "3.Wyœwietl graf" << endl;
+			cout << "4.Algorytm Prima" << endl;
+			cout << "5.Algorytm Dijkstry" << endl;
+			cout << "9.Wykonaj pomiary" << endl;
+			cout << "0.Wyjscie" << endl;
+			cout << "Podaj opcje:";
 
-				cout << " Podaj nazwe pliku:";
-				cin >> fileName;
-				//cout << " Jak to typ grafu? (0-nieskierowany, 1-skierowany)";
-				//cin >> directed;
-
-				al = new AdjacencyList(fileName, false);
-				am = new AdjacencyMatrix(fileName, false);
-
-				cout << "Wczytano." << endl;
-
-				break;
-			case '2':
-
-				// generuj losowo
-
-				cout << " Podaj ilosc wezlow grafu:";
-				cin >> numberOfNodes;
-				cout << " Podaj gestosc grafu (w %):";
-				cin >> density;
-
-				generateRandomGraph(numberOfNodes, density, al, am, false);
-
-				break;
-			case '3':
-				// Wyœwietl
-
-				if (al != NULL && am != NULL) {
-					al->Display(cout);
-					am->Display(cout);
-				}
-
-				break;
-
-			case '4':
-				// Uruchom algorytm, pokaz wyniki
-
-				std::cout << "--- Operacje na listach s¹siedztwa \n";
-				AdjacencyList* output = (AdjacencyList*)al->GenerateEmptyClone();
-				al->RunPrimSaveElsewhere(0, output);
-				output->Display(cout);
-
-				std::cout << "--- Operacje na macierzach s¹siedztwa \n";
-				AdjacencyMatrix* output_m = (AdjacencyMatrix*)am->GenerateEmptyClone();
-				am->RunPrimSaveElsewhere(0, output_m);
-				output_m->Display(cout);
-			}
-		}
-		catch (const std::exception & e) {
-			cout << "program zwrocil blad: " << e.what() << endl;
-			clearCinAfterError();
-		}
-		clearCinAfterError();
-	} while (opt != '0');
-}
-
-void menu_dijkstra() {
-	char opt; //wybrana opcja
-	string fileName; //nazwa pliku wpisana przez u¿ytkownika
-	bool directed; // czy wczytany graf jest skierowany?
-	int numberOfNodes; // ile wêz³ów ma mieæ losowy graf?
-	int density; // jaka gêstoœæ grafu?
-	AdjacencyList* al = new AdjacencyList();
-	AdjacencyMatrix* am = new AdjacencyMatrix();
-
-	do {
-		try {
-			displayMenu("Algorytm Dijkstry");
-			cin >> opt;
+			cin >> option;
+			validateCin();
 			cout << endl;
-			switch (opt) {
+			switch (option) {
 			case '1':
 				// Wczytaj z pliku
 
@@ -184,7 +125,12 @@ void menu_dijkstra() {
 				al = new AdjacencyList(fileName, true);
 				am = new AdjacencyMatrix(fileName, true);
 
-				cout << "Wczytano." << endl;
+				cout << "Wczytano." << endl << endl;
+
+				if (al != NULL && am != NULL) {
+					al->Display(cout);
+					am->Display(cout);
+				}
 
 				break;
 			case '2':
@@ -195,9 +141,10 @@ void menu_dijkstra() {
 				cin >> numberOfNodes;
 				cout << " Podaj gestosc grafu (w %):";
 				cin >> density;
+				cout << " Czy graf ma byc skierowany? 0 - nie, 1 - tak";
+				cin >> directed;
 
-				generateRandomGraph(numberOfNodes, density, al, am, true);
-
+				generateRandomGraph(numberOfNodes, density, al, am, directed);
 				break;
 			case '3':
 				// Wyœwietl
@@ -206,55 +153,39 @@ void menu_dijkstra() {
 					al->Display(cout);
 					am->Display(cout);
 				}
+				break;
+			case '4':
+				std::cout << "--- Operacje na listach sasiedztwa \n";
+				output_list = (AdjacencyList*)al->GenerateEmptyClone();
+				al->RunPrimSaveElsewhere(0, output_list);
+				output_list->Display(cout);
 
+				std::cout << "--- Operacje na macierzach sasiedztwa \n";
+				output_matrix = (AdjacencyMatrix*)am->GenerateEmptyClone();
+				am->RunPrimSaveElsewhere(0, output_matrix);
+				output_matrix->Display(cout);
 				break;
 
-			case '4':
-				std::cout << "--- Operacje na listach s¹siedztwa \n";
-				DijkstraContainer* dc = al->RunDijkstra(cout, 0);
+			case '5':
+				std::cout << "--- Operacje na listach sasiedztwa \n";
+				//DijkstraContainer* dc = 
+				al->RunDijkstra(cout, 0);
 
-				std::cout << "--- Operacje na macierzach s¹siedztwa \n";
-				DijkstraContainer* dc2 = am->RunDijkstra(cout, 0);
+				std::cout << "--- Operacje na macierzach sasiedztwa \n";
+				//DijkstraContainer* dc2 = 
+				am->RunDijkstra(cout, 0);
+				break;
 
+			case '9':
+				//tC.Start(210, 10, 50, 100, cout);
+				break;
+			default:
+				cout << "Nie znaleziono takiej opcji";
 			}
 		}
 		catch (const std::exception & e) {
 			cout << "program zwrocil blad: " << e.what() << endl;
 			clearCinAfterError();
-		}
-		clearCinAfterError();
-	} while (opt != '0');
-}
-int main()
-{
-
-	char option;
-	do {
-		cout << endl;
-		cout << "==== MENU GLOWNE ===" << endl;
-		cout << "1.Algorytm Prima" << endl;
-		cout << "2.Algorytm Dijkstry" << endl;
-		cout << "5.Wykonaj pomiary" << endl;
-		cout << "0.Wyjscie" << endl;
-		cout << "Podaj opcje:";
-
-		cin >> option;
-		validateCin();
-		cout << endl;
-		switch (option) {
-		case '1':
-			menu_prim();
-			break;
-
-		case '2':
-			menu_dijkstra();
-			break;
-
-		case '5':
-			//tC.Start(210, 10, 50, 100, cout);
-			break;
-		default:
-			cout << "Nie znaleziono takiej opcji";
 		}
 		clearCinAfterError();
 	} while (option != '0');
