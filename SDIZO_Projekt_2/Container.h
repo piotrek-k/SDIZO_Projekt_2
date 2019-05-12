@@ -47,6 +47,13 @@ public:
 
 	DijkstraContainer* RunDijkstra(std::ostream& stream, int startingPoint);
 
+	// Usuwa dane z obecnej instancji, generuje nowy graf maj¹cy `numberOfNodes` wierzcho³ków
+	// `density` oznacza iloœæ krawêdzi wyra¿ona w procentach maksymalnej ich liczby
+	void GenerateRandomGraph(int numberOfNodes, int density);
+
+	// Usuwa dane z obecnej instancji
+	virtual void Clean() = 0;
+
 	void RefreshActivityOfNodes();
 };
 

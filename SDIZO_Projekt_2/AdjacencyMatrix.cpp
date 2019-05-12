@@ -18,6 +18,7 @@ AdjacencyMatrix::AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int addit
 
 AdjacencyMatrix::~AdjacencyMatrix()
 {
+	this->Clean();
 }
 
 void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight)
@@ -39,7 +40,7 @@ void AdjacencyMatrix::declareSize(int numberOfEdges, int numberOfNodes, int addi
 
 	//wype³nienie macierzy zerami
 
-	matrix = new MatrixMember* [numberOfNodes];
+	matrix = new MatrixMember * [numberOfNodes];
 	for (int i = 0; i < numberOfNodes; i++) {
 		this->matrix[i] = new MatrixMember[numberOfNodes];
 		for (int j = 0; j < numberOfNodes; j++) {
@@ -109,4 +110,21 @@ ListMember* AdjacencyMatrix::GetAllNeighbours(int nodeId)
 Container* AdjacencyMatrix::GenerateEmptyClone()
 {
 	return new AdjacencyMatrix(this->GetNumberOfEdges(), this->GetNumberOfNodes(), this->GetAdditionalParam(), this->isDirected);
+}
+
+void AdjacencyMatrix::Clean()
+{
+	// usuwanie imformacji o wierzcho³kach
+	for (int a = 0; a < numberOfNodes; a++) {
+		delete stateOfNodes[a];
+	}
+
+	// usuniêcie danych o po³¹czeniach wierzcho³ków
+	for (int l = 0; l < numberOfNodes; l++) {
+		delete[] matrix[l];
+	}
+
+	numberOfNodes = 0;
+	numberOfEdges = 0;
+	additionalParam = 0;
 }

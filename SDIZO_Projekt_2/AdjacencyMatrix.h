@@ -20,5 +20,7 @@ public:
 	ListMember* GetAllNeighbours(int nodeId);
 
 	Container* GenerateEmptyClone();
+
+	void Clean();
 };
 

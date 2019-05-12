@@ -237,6 +237,11 @@ DijkstraContainer* Container::RunDijkstra(std::ostream& stream, int startingPoin
 	return dc;
 }
 
+void Container::GenerateRandomGraph(int numberOfNodes, int density)
+{
+
+}
+
 void Container::RefreshActivityOfNodes()
 {
 	for (int a = 0; a < GetNumberOfNodes(); a++) {

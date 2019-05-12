@@ -17,6 +17,7 @@ AdjacencyList::AdjacencyList(int numberOfEdges, int numberOfNodes, int additiona
 
 AdjacencyList::~AdjacencyList()
 {
+	this->Clean();
 }
 
 void AdjacencyList::InsertNode(int initialNode, int endNode, int weight)
@@ -87,4 +88,23 @@ Node* AdjacencyList::LowestCostNeighbour(int index, bool canBeDisabled)
 ListMember* AdjacencyList::GetAllNeighbours(int nodeId)
 {
 	return lists[nodeId];
+}
+
+void AdjacencyList::Clean()
+{
+	// usuwanie imformacji o wierzcho³kach
+	for (int a = 0; a < numberOfNodes; a++) {
+		delete stateOfNodes[a];
+	}
+
+	// usuniêcie danych o po³¹czeniach wierzcho³ków
+	for (int l = 0; l < numberOfNodes; l++) {
+		delete lists[l];
+	}
+
+	// TODO: usuniêcie alreadyUsedNodes?
+
+	numberOfNodes = 0;
+	numberOfEdges = 0;
+	additionalParam = 0;
 }
