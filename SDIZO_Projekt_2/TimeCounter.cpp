@@ -5,15 +5,6 @@
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
-TimeCounter::TimeCounter()
-{
-}
-
-
-TimeCounter::~TimeCounter()
-{
-}
-
 using namespace std;
 
 TimeCounter::TimeCounter()

@@ -46,7 +46,7 @@ public:
 	// uruchamia algorytm Prima, zapisuje wynik w podanym Kontenerze
 	void RunPrimSaveElsewhere(int startingPoint, Container* targetContainer);
 
-	DijkstraContainer* RunDijkstra(std::ostream& stream, int startingPoint);
+	DijkstraContainer* RunDijkstra(int startingPoint);
 
 	// Usuwa dane z obecnej instancji, generuje nowy graf maj¹cy `numberOfNodes` wierzcho³ków
 	// `density` oznacza iloœæ krawêdzi wyra¿ona w procentach maksymalnej ich liczby

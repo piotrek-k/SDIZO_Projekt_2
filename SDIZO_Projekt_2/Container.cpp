@@ -151,7 +151,7 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 	}
 }
 
-DijkstraContainer* Container::RunDijkstra(std::ostream& stream, int startingPoint)
+DijkstraContainer* Container::RunDijkstra(int startingPoint)
 {
 	RefreshActivityOfNodes();
 	// wartoœæ "active" w ka¿dym Node okreœla w którym podzbiorze znajduje siê wierzcho³ek
@@ -210,34 +210,7 @@ DijkstraContainer* Container::RunDijkstra(std::ostream& stream, int startingPoin
 
 	}
 
-	stream << "d: ";
-	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
-		stream << d[a] << " ";
-	}
-	stream << endl;
-
-	stream << "p: ";
-	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
-		stream << p[a] << " ";
-	}
-	stream << endl;
-
-	// wyniki
-	int* stos = new int[this->GetNumberOfNodes()];
-	int stos_wsk = 0;
-	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
-		stream << a << ": ";
-
-		for (int j = a; j > -1; j = p[j]) {
-			stos[stos_wsk++] = j;
-		}
-		while (stos_wsk) stream << stos[--stos_wsk] << " ";
-		stream << "$" << d[a] << endl;
-	}
-
-	DijkstraContainer* dc = new DijkstraContainer();
-	dc->minCostTable = d;
-	dc->prevStepsTable = p;
+	DijkstraContainer* dc = new DijkstraContainer(d, p, this->GetNumberOfNodes());
 
 	return dc;
 }

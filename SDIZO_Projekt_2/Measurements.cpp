@@ -30,11 +30,11 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 		switch (type) {
 		case DIJKSTRA:
 			adjMatrixCounter->StartNextMeasurement();
-			am->RunDijkstra(stream1, 0);
+			am->RunDijkstra(0);
 			adjMatrixCounter->EndSingleMeasurement();
 
 			adjListCounter->StartNextMeasurement();
-			al->RunDijkstra(stream1, 0);
+			al->RunDijkstra(0);
 			adjListCounter->EndSingleMeasurement();
 
 			break;

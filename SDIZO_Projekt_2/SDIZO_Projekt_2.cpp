@@ -169,11 +169,11 @@ int main()
 			case '5':
 				std::cout << "--- Operacje na listach sasiedztwa \n";
 				//DijkstraContainer* dc = 
-				al->RunDijkstra(cout, 0);
+				al->RunDijkstra(0)->Display(cout);
 
 				std::cout << "--- Operacje na macierzach sasiedztwa \n";
 				//DijkstraContainer* dc2 = 
-				am->RunDijkstra(cout, 0);
+				am->RunDijkstra(0)->Display(cout);
 				break;
 
 			case '9':
