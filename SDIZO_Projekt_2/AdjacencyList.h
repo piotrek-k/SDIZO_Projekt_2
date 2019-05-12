@@ -12,6 +12,7 @@ class AdjacencyList :
 	ListMember* alreadyUsedNodes = NULL;
 
 public:
+	AdjacencyList();
 	AdjacencyList(const std::string& fileName, bool isDirected);
 	AdjacencyList(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);
 	~AdjacencyList();
@@ -29,5 +30,7 @@ public:
 	ListMember* GetAllNeighbours(int nodeId);
 
 	void Clean();
+
+	bool DoesConnectionExist(int node1, int node2);
 };
 

@@ -20,6 +20,7 @@ protected:
 public:
 	/*Container(const std::string& fileName, bool isDirected);
 	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/
+	Container();
 	~Container();
 
 	// Utwórz po³¹czenie miêdzy wêz³em initialNode a wêz³em endNode o wadze weight
@@ -49,11 +50,13 @@ public:
 
 	// Usuwa dane z obecnej instancji, generuje nowy graf maj¹cy `numberOfNodes` wierzcho³ków
 	// `density` oznacza iloœæ krawêdzi wyra¿ona w procentach maksymalnej ich liczby
-	void GenerateRandomGraph(int numberOfNodes, int density);
+	//void GenerateRandomGraph(int numberOfNodes, int density);
 
 	// Usuwa dane z obecnej instancji
 	virtual void Clean() = 0;
 
 	void RefreshActivityOfNodes();
+
+	virtual bool DoesConnectionExist(int node1, int node2) = 0;
 };
 

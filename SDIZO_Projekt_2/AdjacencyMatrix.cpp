@@ -3,6 +3,10 @@
 
 using namespace std;
 
+AdjacencyMatrix::AdjacencyMatrix()
+{
+}
+
 AdjacencyMatrix::AdjacencyMatrix(const std::string& fileName, bool isDirected)
 {
 	this->loadFromFile(fileName, isDirected);
@@ -127,4 +131,14 @@ void AdjacencyMatrix::Clean()
 	numberOfNodes = 0;
 	numberOfEdges = 0;
 	additionalParam = 0;
+}
+
+bool AdjacencyMatrix::DoesConnectionExist(int node1, int node2)
+{
+
+	if (matrix[node1][node2].connection) {
+		return true;
+	}
+
+	return false;
 }

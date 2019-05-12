@@ -2,6 +2,10 @@
 
 #include <iostream>
 
+AdjacencyList::AdjacencyList()
+{
+}
+
 AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected){
 	this->loadFromFile(fileName, isDirected);
 	generateNodeStorage();
@@ -107,4 +111,18 @@ void AdjacencyList::Clean()
 	numberOfNodes = 0;
 	numberOfEdges = 0;
 	additionalParam = 0;
+}
+
+bool AdjacencyList::DoesConnectionExist(int node1, int node2)
+{
+	ListMember* elem = lists[node1];
+	while (elem->IsNotNull()) {
+
+		if (elem->getIndex() == node2) {
+			return true;
+		}
+
+		elem = elem->getNext();
+	}
+	return false;
 }

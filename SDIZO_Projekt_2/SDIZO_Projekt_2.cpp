@@ -4,6 +4,8 @@
 #include "AdjacencyList.h"
 #include "AdjacencyMatrix.h"
 #include "DijkstraContainer.h"
+#include <ctime>    // For time()
+#include <cstdlib>  // For srand() and rand()
 
 using namespace std;
 
@@ -36,12 +38,63 @@ void clearCinAfterError() {
 	cin.sync();
 }
 
+// generowanie losowego drzewa. Dowolne dwa wierzcho³ki bêd¹ mia³y ze sob¹ co najwy¿ej jedn¹ krawêdŸ
+void generateRandomGraph(int numberOfNodes, int density, AdjacencyList*& al, AdjacencyMatrix*& am, bool directed)
+{
+	if (numberOfNodes <= 0) {
+		throw exception("Nieprawidlowa wartosc ilosci wezlow");
+	}
+
+	if (density > 100 || density <= 0) {
+		throw exception("Nieprawidlowa wartosc gestosci grafu");
+	}
+
+	if (al != nullptr) {
+		al->Clean();
+	}
+	if (am != nullptr) {
+		am->Clean();
+	}
+
+	srand(time(0));
+	int maxNumberOfEdges = numberOfNodes * (numberOfNodes - 1) / 2;
+	int edgesToCreate = std::floor(maxNumberOfEdges * (density / 100.0));
+	int weightRange = 10;
+
+	al = new AdjacencyList(edgesToCreate, numberOfNodes, 0, directed);
+	am = new AdjacencyMatrix(edgesToCreate, numberOfNodes, 0, directed);
+
+	// generowanie drzewa rozpinajacego
+	for (int n = 0; n < numberOfNodes - 1 && edgesToCreate > 0; n++) {
+		int newWeight = (rand() % weightRange)+1;
+		al->InsertNode(n, n + 1, newWeight);
+		am->InsertNode(n, n + 1, newWeight);
+		edgesToCreate--;
+	}
+
+	// generowanie reszty drzewa
+	for (int n = 0; n < edgesToCreate; n++) {
+		int randomNode1;
+		int randomNode2;
+		do {
+			randomNode1 = (rand() % numberOfNodes);
+			randomNode2 = (rand() % numberOfNodes);
+		} while (am->DoesConnectionExist(randomNode1, randomNode2) || randomNode1 == randomNode2);
+
+		int newWeight = (rand() % weightRange)+1;
+		al->InsertNode(randomNode1, randomNode2, newWeight);
+		am->InsertNode(randomNode1, randomNode2, newWeight);
+	}
+}
+
 void menu_prim() {
 	char opt; //wybrana opcja
 	string fileName; //nazwa pliku wpisana przez u¿ytkownika
 	bool directed; // czy wczytany graf jest skierowany?
-	AdjacencyList* al = NULL;
-	AdjacencyMatrix* am = NULL;
+	int numberOfNodes; // ile wêz³ów ma mieæ losowy graf?
+	int density; // jaka gêstoœæ grafu?
+	AdjacencyList* al = new AdjacencyList();
+	AdjacencyMatrix* am = new AdjacencyMatrix();
 
 	do {
 		try {
@@ -64,6 +117,16 @@ void menu_prim() {
 
 				break;
 			case '2':
+
+				// generuj losowo
+
+				cout << " Podaj ilosc wezlow grafu:";
+				cin >> numberOfNodes;
+				cout << " Podaj gestosc grafu (w %):";
+				cin >> density;
+
+				generateRandomGraph(numberOfNodes, density, al, am, false);
+
 				break;
 			case '3':
 				// Wyœwietl
@@ -89,7 +152,7 @@ void menu_prim() {
 				output_m->Display(cout);
 			}
 		}
-		catch (const std::exception& e) {
+		catch (const std::exception & e) {
 			cout << "program zwrocil blad: " << e.what() << endl;
 			clearCinAfterError();
 		}
@@ -101,8 +164,10 @@ void menu_dijkstra() {
 	char opt; //wybrana opcja
 	string fileName; //nazwa pliku wpisana przez u¿ytkownika
 	bool directed; // czy wczytany graf jest skierowany?
-	AdjacencyList* al = NULL;
-	AdjacencyMatrix* am = NULL;
+	int numberOfNodes; // ile wêz³ów ma mieæ losowy graf?
+	int density; // jaka gêstoœæ grafu?
+	AdjacencyList* al = new AdjacencyList();
+	AdjacencyMatrix* am = new AdjacencyMatrix();
 
 	do {
 		try {
@@ -123,6 +188,16 @@ void menu_dijkstra() {
 
 				break;
 			case '2':
+
+				// generuj losowo
+
+				cout << " Podaj ilosc wezlow grafu:";
+				cin >> numberOfNodes;
+				cout << " Podaj gestosc grafu (w %):";
+				cin >> density;
+
+				generateRandomGraph(numberOfNodes, density, al, am, true);
+
 				break;
 			case '3':
 				// Wyœwietl
@@ -133,7 +208,7 @@ void menu_dijkstra() {
 				}
 
 				break;
-			
+
 			case '4':
 				std::cout << "--- Operacje na listach s¹siedztwa \n";
 				DijkstraContainer* dc = al->RunDijkstra(cout, 0);

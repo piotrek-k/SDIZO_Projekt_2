@@ -8,6 +8,7 @@ class AdjacencyMatrix :
 	MatrixMember** matrix = NULL;
 	
 public:
+	AdjacencyMatrix();
 	AdjacencyMatrix(const std::string& fileName, bool isDirected);
 	AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);
 	~AdjacencyMatrix();
@@ -22,5 +23,7 @@ public:
 	Container* GenerateEmptyClone();
 
 	void Clean();
+
+	bool DoesConnectionExist(int node1, int node2);
 };
 

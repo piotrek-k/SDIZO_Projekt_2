@@ -3,6 +3,7 @@
 #include <fstream>
 #include <sstream>
 #include "AdjacencyList.h"
+#include <math.h>
 
 using namespace std;
 
@@ -16,6 +17,10 @@ const int MAXINT = 2147483647;
 //{
 //}
 
+
+Container::Container()
+{
+}
 
 Container::~Container()
 {
@@ -112,7 +117,7 @@ void Container::generateNodeStorage()
 
 void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
 	RefreshActivityOfNodes();
-	
+
 	int numOfIterations = 0;
 	this->GetNode(startingPoint)->setActiveState(true);
 
@@ -235,11 +240,6 @@ DijkstraContainer* Container::RunDijkstra(std::ostream& stream, int startingPoin
 	dc->prevStepsTable = p;
 
 	return dc;
-}
-
-void Container::GenerateRandomGraph(int numberOfNodes, int density)
-{
-
 }
 
 void Container::RefreshActivityOfNodes()
