@@ -97,10 +97,10 @@ Node* AdjacencyMatrix::LowestCostNeighbour(int index, bool canBeDisabled)
 
 ListMember* AdjacencyMatrix::GetAllNeighbours(int nodeId)
 {
-	ListMember* lm = NULL;
+	ListMember* lm = new ListMember();
 	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
 		if (matrix[nodeId][a].connection) {
-			if (lm == NULL) {
+			if (lm->IsNull()) {
 				lm = new ListMember(a, matrix[nodeId][a].weight);
 			}
 			else {

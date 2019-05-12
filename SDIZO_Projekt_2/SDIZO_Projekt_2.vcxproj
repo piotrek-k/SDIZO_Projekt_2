@@ -169,6 +169,7 @@
     <ClInclude Include="DijkstraContainer.h" />
     <ClInclude Include="ListMember.h" />
     <ClInclude Include="MatrixMember.h" />
+    <ClInclude Include="Measurements.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="SDIZO_Projekt_2.h" />
     <ClInclude Include="TimeCounter.h" />

@@ -338,3 +338,7 @@ ASALocalRun/
 
 # BeatPulse healthcheck temp database
 healthchecksdb
+/SDIZO_Projekt_2/results_prim_matrix.txt
+/SDIZO_Projekt_2/results_prim_list.txt
+/SDIZO_Projekt_2/results_dijkstra_matrix.txt
+/SDIZO_Projekt_2/results_dijkstra_list.txt

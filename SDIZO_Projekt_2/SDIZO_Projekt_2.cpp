@@ -6,6 +6,7 @@
 #include "DijkstraContainer.h"
 #include <ctime>    // For time()
 #include <cstdlib>  // For srand() and rand()
+#include "Measurements.h"
 
 using namespace std;
 
@@ -177,7 +178,7 @@ int main()
 				break;
 
 			case '9':
-				//tC.Start(210, 10, 50, 100, cout);
+				RunAllMeasurements();
 				break;
 			default:
 				cout << "Nie znaleziono takiej opcji";
