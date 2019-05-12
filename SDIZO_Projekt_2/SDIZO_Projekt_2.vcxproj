@@ -159,6 +159,7 @@
     <ClCompile Include="Measurements.cpp" />
     <ClCompile Include="Node.cpp" />
     <ClCompile Include="SDIZO_Projekt_2.cpp" />
+    <ClCompile Include="TimeCounter.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AdjacencyList.h" />
@@ -168,6 +169,8 @@
     <ClInclude Include="ListMember.h" />
     <ClInclude Include="MatrixMember.h" />
     <ClInclude Include="Node.h" />
+    <ClInclude Include="SDIZO_Projekt_2.h" />
+    <ClInclude Include="TimeCounter.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
