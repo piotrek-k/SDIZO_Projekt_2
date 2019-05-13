@@ -29,6 +29,10 @@ void AdjacencyList::InsertNode(int initialNode, int endNode, int weight)
 {
 	lists[initialNode]->AddAtTheEnd(endNode, weight);
 
+	//KRUSKAL 
+	edgesHeap->addElement(new Edge(initialNode, endNode, weight));
+	//this->lastEdgeKey++;
+
 	if (!this->isDirected) {
 		lists[endNode]->AddAtTheEnd(initialNode, weight);
 	}

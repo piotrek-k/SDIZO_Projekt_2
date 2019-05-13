@@ -3,6 +3,8 @@
 #include "Node.h"
 #include "ShortestPathsContainer.h"
 #include "ListMember.h"
+#include "HeapOfEdges.h"
+#include "Edge.h"
 
 class Container
 {
@@ -17,6 +19,9 @@ protected:
 	virtual void declareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
 	void generateNodeStorage();
 	Node** stateOfNodes = NULL;
+
+	// KRUSKAL
+	HeapOfEdges* edgesHeap = NULL;
 public:
 	/*Container(const std::string& fileName, bool isDirected);
 	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/

@@ -114,6 +114,8 @@ void Container::generateNodeStorage()
 	for (int a = 0; a < numberOfNodes; a++) {
 		stateOfNodes[a] = new Node(SPECIFIED);
 	}
+
+	edgesHeap = new HeapOfEdges();
 }
 
 void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {

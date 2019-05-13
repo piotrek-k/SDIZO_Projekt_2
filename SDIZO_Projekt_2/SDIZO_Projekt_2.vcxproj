@@ -154,6 +154,8 @@
     <ClCompile Include="AdjacencyList.cpp" />
     <ClCompile Include="AdjacencyMatrix.cpp" />
     <ClCompile Include="Container.cpp" />
+    <ClCompile Include="Edge.cpp" />
+    <ClCompile Include="HeapOfEdges.cpp" />
     <ClCompile Include="ShortestPathsContainer.cpp" />
     <ClCompile Include="ListMember.cpp" />
     <ClCompile Include="MatrixMember.cpp" />
@@ -166,6 +168,8 @@
     <ClInclude Include="AdjacencyList.h" />
     <ClInclude Include="AdjacencyMatrix.h" />
     <ClInclude Include="Container.h" />
+    <ClInclude Include="Edge.h" />
+    <ClInclude Include="HeapOfEdges.h" />
     <ClInclude Include="ShortestPathsContainer.h" />
     <ClInclude Include="ListMember.h" />
     <ClInclude Include="MatrixMember.h" />
