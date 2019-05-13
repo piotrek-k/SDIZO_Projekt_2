@@ -54,7 +54,7 @@
     <ClCompile Include="TimeCounter.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DijkstraContainer.cpp">
+    <ClCompile Include="ShortestPathsContainer.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -77,9 +77,6 @@
     <ClInclude Include="Node.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="DijkstraContainer.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
     <ClInclude Include="SDIZO_Projekt_2.h">
       <Filter>Header Files</Filter>
     </ClInclude>
@@ -87,6 +84,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="Measurements.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="ShortestPathsContainer.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

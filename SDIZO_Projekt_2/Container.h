@@ -1,7 +1,7 @@
 #pragma once
 #include <string>
 #include "Node.h"
-#include "DijkstraContainer.h"
+#include "ShortestPathsContainer.h"
 #include "ListMember.h"
 
 class Container
@@ -46,7 +46,9 @@ public:
 	// uruchamia algorytm Prima, zapisuje wynik w podanym Kontenerze
 	void RunPrimSaveElsewhere(int startingPoint, Container* targetContainer);
 
-	DijkstraContainer* RunDijkstra(int startingPoint);
+	ShortestPathsContainer* RunDijkstra(int startingPoint);
+
+	ShortestPathsContainer* RunBellmanFord(int startingPoint);
 
 	// Usuwa dane z obecnej instancji, generuje nowy graf maj¹cy `numberOfNodes` wierzcho³ków
 	// `density` oznacza iloœæ krawêdzi wyra¿ona w procentach maksymalnej ich liczby

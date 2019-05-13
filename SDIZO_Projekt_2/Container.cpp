@@ -28,6 +28,7 @@ Container::~Container()
 
 void Container::loadFromFile(const std::string& fileName, bool isDirected)
 {
+	this->isDirected = isDirected;
 	string line;
 	ifstream myfile(fileName);
 	bool firstLine = true;
@@ -151,14 +152,14 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 	}
 }
 
-DijkstraContainer* Container::RunDijkstra(int startingPoint)
+ShortestPathsContainer* Container::RunDijkstra(int startingPoint)
 {
 	RefreshActivityOfNodes();
 	// wartoœæ "active" w ka¿dym Node okreœla w którym podzbiorze znajduje siê wierzcho³ek
 	// zbiór Q - false (wartoœæ domyœlna, zbiór wierzcho³ków do sprawdzenia)
 	// zbiór S - true (zbiór wierzcho³ków sprawdzonych)
 
-	int* d = new int[this->GetNumberOfNodes()]; // koszty dojœcia z 'u' do startingPoint
+	long long* d = new long long[this->GetNumberOfNodes()]; // koszty dojœcia z 'u' do startingPoint
 	int* p = new int[this->GetNumberOfNodes()]; // p[u] - wierzcho³ek bêd¹cy nastêpnym krokiem w kierunku startingPoint
 
 	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
@@ -210,9 +211,57 @@ DijkstraContainer* Container::RunDijkstra(int startingPoint)
 
 	}
 
-	DijkstraContainer* dc = new DijkstraContainer(d, p, this->GetNumberOfNodes());
+	ShortestPathsContainer* dc = new ShortestPathsContainer(d, p, this->GetNumberOfNodes());
 
 	return dc;
+}
+
+ShortestPathsContainer* Container::RunBellmanFord(int startingPoint)
+{
+	long long* d = new long long[this->GetNumberOfNodes()]; // koszty dojœcia z 'u' do startingPoint
+	int* p = new int[this->GetNumberOfNodes()]; // p[u] zawiera numer wierzcho³ka który jest poprzednikiem
+	for (int a = 0; a < this->GetNumberOfNodes(); a++) {
+		d[a] = MAXINT;
+		p[a] = -1;
+	}
+
+	d[startingPoint] = 0; // koszt dojœcia do wierzcho³ka startowego
+
+	for (int n = 0; n < this->GetNumberOfNodes() - 1; n++) { // wykonaj pêtlê n-1 razy
+		bool test = true; // czy coœ zosta³o zmienione?
+
+		for (int x = 0; x < this->GetNumberOfNodes() - 1; x++) {
+			ListMember* neighbour = this->GetAllNeighbours(x);
+			do {
+				if (d[neighbour->getIndex()] > d[x] + neighbour->getWeight()) {
+					test = false; // je¿eli doszliœmy tutaj to dokonano zmiany
+					d[neighbour->getIndex()] = d[x] + neighbour->getWeight();
+					p[neighbour->getIndex()] = x; // ustalamy poprzednik
+				}
+				neighbour = neighbour->getNext();
+
+			} while (neighbour->IsNotNull());
+
+			if (test == true) {
+				//ZAKOÑCZONO POMYŒLNIE
+				ShortestPathsContainer* result = new ShortestPathsContainer(d, p, this->GetNumberOfNodes());
+				return result;
+			}
+		}
+	}
+
+	// SPRAWDZENIE ISTNIENIA CYKLU
+	for (int x = 0; x < this->GetNumberOfNodes() - 1; x++) {
+		ListMember* neighbour = this->GetAllNeighbours(x);
+		do {
+			if (d[neighbour->getIndex()] > d[x] + neighbour->getWeight()) {
+				// ZAKOÑCZ Z WYNIKIEM FALSE
+				return new ShortestPathsContainer();
+			}
+			neighbour = neighbour->getNext();
+		} while (neighbour->IsNotNull());
+	}
+
 }
 
 void Container::RefreshActivityOfNodes()

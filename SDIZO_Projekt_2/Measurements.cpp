@@ -63,7 +63,7 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 	}
 
 	stream1 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjListCounter->Summarize() << std::endl;
-	stream2 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjListCounter->Summarize() << std::endl;
+	stream2 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjMatrixCounter->Summarize() << std::endl;
 
 	delete al;
 	delete am;

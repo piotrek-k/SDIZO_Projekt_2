@@ -154,7 +154,7 @@
     <ClCompile Include="AdjacencyList.cpp" />
     <ClCompile Include="AdjacencyMatrix.cpp" />
     <ClCompile Include="Container.cpp" />
-    <ClCompile Include="DijkstraContainer.cpp" />
+    <ClCompile Include="ShortestPathsContainer.cpp" />
     <ClCompile Include="ListMember.cpp" />
     <ClCompile Include="MatrixMember.cpp" />
     <ClCompile Include="Measurements.cpp" />
@@ -166,7 +166,7 @@
     <ClInclude Include="AdjacencyList.h" />
     <ClInclude Include="AdjacencyMatrix.h" />
     <ClInclude Include="Container.h" />
-    <ClInclude Include="DijkstraContainer.h" />
+    <ClInclude Include="ShortestPathsContainer.h" />
     <ClInclude Include="ListMember.h" />
     <ClInclude Include="MatrixMember.h" />
     <ClInclude Include="Measurements.h" />

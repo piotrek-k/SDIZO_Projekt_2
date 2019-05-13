@@ -8,6 +8,7 @@ AdjacencyList::AdjacencyList()
 
 AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected){
 	this->loadFromFile(fileName, isDirected);
+	this->isDirected = isDirected;
 	generateNodeStorage();
 }
 

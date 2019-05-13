@@ -3,7 +3,7 @@
 #include "Container.h"
 #include "AdjacencyList.h"
 #include "AdjacencyMatrix.h"
-#include "DijkstraContainer.h"
+#include "ShortestPathsContainer.h"
 #include <ctime>    // For time()
 #include <cstdlib>  // For srand() and rand()
 #include "Measurements.h"
@@ -109,6 +109,7 @@ int main()
 			cout << "3.Wyœwietl graf" << endl;
 			cout << "4.Algorytm Prima" << endl;
 			cout << "5.Algorytm Dijkstry" << endl;
+			cout << "6.Algorytm Bellmana-Forda" << endl;
 			cout << "9.Wykonaj pomiary" << endl;
 			cout << "0.Wyjscie" << endl;
 			cout << "Podaj opcje:";
@@ -123,8 +124,11 @@ int main()
 				cout << " Podaj nazwe pliku:";
 				cin >> fileName;
 
-				al = new AdjacencyList(fileName, true);
-				am = new AdjacencyMatrix(fileName, true);
+				cout << " Czy graf ma byc skierowany? 0 - nie, 1 - tak";
+				cin >> directed;
+
+				al = new AdjacencyList(fileName, directed);
+				am = new AdjacencyMatrix(fileName, directed);
 
 				cout << "Wczytano." << endl << endl;
 
@@ -175,6 +179,16 @@ int main()
 				std::cout << "--- Operacje na macierzach sasiedztwa \n";
 				//DijkstraContainer* dc2 = 
 				am->RunDijkstra(0)->Display(cout);
+				break;
+
+			case '6':
+				std::cout << "--- Operacje na listach sasiedztwa \n";
+				//DijkstraContainer* dc = 
+				al->RunBellmanFord(0)->Display(cout);
+
+				std::cout << "--- Operacje na macierzach sasiedztwa \n";
+				//DijkstraContainer* dc2 = 
+				am->RunBellmanFord(0)->Display(cout);
 				break;
 
 			case '9':
