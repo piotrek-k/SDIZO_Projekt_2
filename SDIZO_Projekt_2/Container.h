@@ -21,7 +21,7 @@ protected:
 	Node** stateOfNodes = NULL;
 
 	// KRUSKAL
-	HeapOfEdges* edgesHeap = NULL;
+	HeapOfEdges* edgesHeap = new HeapOfEdges();
 public:
 	/*Container(const std::string& fileName, bool isDirected);
 	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/
@@ -50,6 +50,10 @@ public:
 
 	// uruchamia algorytm Prima, zapisuje wynik w podanym Kontenerze
 	void RunPrimSaveElsewhere(int startingPoint, Container* targetContainer);
+
+	void KruskalUnionSets(Node* node1, Node* node2);
+
+	void RunKruskalSaveElsewhere(Container* targetContainer);
 
 	ShortestPathsContainer* RunDijkstra(int startingPoint);
 

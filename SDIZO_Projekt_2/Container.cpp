@@ -115,7 +115,7 @@ void Container::generateNodeStorage()
 		stateOfNodes[a] = new Node(SPECIFIED);
 	}
 
-	edgesHeap = new HeapOfEdges();
+	//edgesHeap = new HeapOfEdges();
 }
 
 void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
@@ -151,6 +151,44 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 		}
 
 		numOfIterations++;
+	}
+}
+
+void Container::KruskalUnionSets(Node* node1, Node* node2)
+{
+	Node* korzen1 = node1->KruskalGetRoot();
+	Node* korzen2 = node2->KruskalGetRoot();
+	if (korzen1->index != korzen2->index) {
+		// które drzewo wiêksze?
+		if (korzen1->KruskalTreeRank > korzen2->KruskalTreeRank) {
+			// drzewo 1 wiêksze, do³¹czam drzewo 2 do drzewa 1
+			korzen2->KruskalUP = korzen1;
+		}
+		else {
+			korzen1->KruskalUP = korzen2;
+			if (korzen1->KruskalTreeRank == korzen2->KruskalTreeRank) {
+				korzen2->KruskalTreeRank++;
+			}
+		}
+	}
+}
+
+void Container::RunKruskalSaveElsewhere(Container* targetContainer)
+{
+	for (int n = 0; n < this->GetNumberOfNodes(); n++) {
+		// Ka¿dy wierzcho³ek umieœæ w roz³¹cznym zbiorze
+		// tj. ustal, ¿e Node jest korzeniem
+		stateOfNodes[n]->KruskalUP = new Node(EMPTY);
+	}
+
+	for (int n = 0; n < this->GetNumberOfNodes()-1; n++) {
+		// dla wszystkich n-1 krawêdzi
+		Edge* smallestEdge = this->edgesHeap->extractFirst();
+		if (stateOfNodes[smallestEdge->from]->KruskalGetRoot() != stateOfNodes[smallestEdge->to]->KruskalGetRoot()) {
+			// porównywane wêz³y s¹ w ró¿nych drzewach
+			targetContainer->InsertNode(smallestEdge->from, smallestEdge->to, smallestEdge->weight);
+			KruskalUnionSets(stateOfNodes[smallestEdge->from], stateOfNodes[smallestEdge->to]);
+		}
 	}
 }
 

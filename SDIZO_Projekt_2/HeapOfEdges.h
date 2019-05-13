@@ -5,7 +5,7 @@ using namespace std;
 class HeapOfEdges
 {
 	Edge** tab;
-	int count; //zadeklarowana w pliku iloœæ elementów w tablicy
+	int count = 0; //zadeklarowana w pliku iloœæ elementów w tablicy
 
 	bool searchFromIndex(Edge* val, int index); //funkcja pomocnicza do findValue
 
@@ -35,5 +35,7 @@ public:
 	void changeDeclaredSize(int newCount);
 
 	void clearHeap();
+
+	Edge* extractFirst();
 };
 

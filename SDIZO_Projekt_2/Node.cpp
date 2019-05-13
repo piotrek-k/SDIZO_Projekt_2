@@ -1,5 +1,20 @@
 #include "Node.h"
 
+bool Node::KruskalIsRoot()
+{
+	return KruskalUP->IsNull();
+}
+
+Node* Node::KruskalGetRoot()
+{
+	Node* elem = this;
+	while (elem->KruskalUP->IsNotNull()) {
+		elem = elem->KruskalUP;
+	}
+	return elem;
+}
+
+
 Node::Node() {
 	this->index = 0;
 	this->weight = 0;
@@ -20,6 +35,7 @@ Node::Node(int index, int weight)
 	this->active = false;
 	// Node ma jakieœ dane, wiêc mo¿na go uznaæ za zainicjowanego
 	this->initialized = true;
+	//this->KruskalUP = new Node(EMPTY);
 }
 
 Node::~Node()

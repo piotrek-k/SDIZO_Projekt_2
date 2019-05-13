@@ -11,6 +11,11 @@ public:
 	int weight = 0;
 	int index = 0;
 	bool active = false;
+	
+	Node* KruskalUP;
+	int KruskalTreeRank = 0;
+	bool KruskalIsRoot();
+	Node* KruskalGetRoot();
 
 	Node();
 	Node(NodeType isNull);

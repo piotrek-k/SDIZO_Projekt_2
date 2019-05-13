@@ -110,6 +110,7 @@ int main()
 			cout << "4.Algorytm Prima" << endl;
 			cout << "5.Algorytm Dijkstry" << endl;
 			cout << "6.Algorytm Bellmana-Forda" << endl;
+			cout << "7.Algorytm Kruskala" << endl;
 			cout << "9.Wykonaj pomiary" << endl;
 			cout << "0.Wyjscie" << endl;
 			cout << "Podaj opcje:";
@@ -189,6 +190,18 @@ int main()
 				std::cout << "--- Operacje na macierzach sasiedztwa \n";
 				//DijkstraContainer* dc2 = 
 				am->RunBellmanFord(0)->Display(cout);
+				break;
+
+			case '7':
+				std::cout << "--- Operacje na listach sasiedztwa \n";
+				output_list = (AdjacencyList*)al->GenerateEmptyClone();
+				al->RunKruskalSaveElsewhere(output_list);
+				output_list->Display(cout);
+
+				std::cout << "--- Operacje na macierzach sasiedztwa \n";
+				output_matrix = (AdjacencyMatrix*)am->GenerateEmptyClone();
+				am->RunKruskalSaveElsewhere(output_matrix);
+				output_matrix->Display(cout);
 				break;
 
 			case '9':

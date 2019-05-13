@@ -257,10 +257,17 @@ void HeapOfEdges::changeDeclaredSize(int newCount)
 }
 
 void HeapOfEdges::clearHeap() {
-	for (int a = 0; a < this->getDeclaredSize(); a++) {
+	/*for (int a = 0; a < this->getDeclaredSize(); a++) {
 		delete tab[a];
-	}
+	}*/
 	delete tab;
 	tab = new Edge*[1];
 	count = 0;
+}
+
+Edge* HeapOfEdges::extractFirst()
+{
+	Edge* first = tab[0];
+	this->removeElementAtIndex(0);
+	return first;
 }
