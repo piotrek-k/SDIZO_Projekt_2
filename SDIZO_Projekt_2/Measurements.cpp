@@ -8,7 +8,8 @@ using namespace std;
 enum ALGORITHM_TYPE {
 	PRIM,
 	DIJKSTRA,
-	BELLMANFORD
+	BELLMANFORD,
+	KRUSKAL
 };
 
 
@@ -24,9 +25,11 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 
 	switch (type) {
 	case DIJKSTRA:
+	case BELLMANFORD:
 		directed = true;
 		break;
 	case PRIM:
+	case KRUSKAL:
 		directed = false;
 		break;
 	}
@@ -47,6 +50,19 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 			output_am = (AdjacencyMatrix*)am->GenerateEmptyClone();
 			adjMatrixCounter->StartNextMeasurement();
 			am->RunPrimSaveElsewhere(0, output_am);
+			adjMatrixCounter->EndSingleMeasurement();
+			delete output_am;
+
+		case KRUSKAL:
+			output_al = (AdjacencyList*)al->GenerateEmptyClone();
+			adjListCounter->StartNextMeasurement();
+			al->RunKruskalSaveElsewhere(output_al);
+			adjListCounter->EndSingleMeasurement();
+			delete output_al;
+
+			output_am = (AdjacencyMatrix*)am->GenerateEmptyClone();
+			adjMatrixCounter->StartNextMeasurement();
+			am->RunKruskalSaveElsewhere(output_am);
 			adjMatrixCounter->EndSingleMeasurement();
 			delete output_am;
 
@@ -131,6 +147,29 @@ void RunAllMeasurements() {
 
 		prim_list.close();
 		prim_matrix.close();
+	}
+
+	{
+		ofstream kruskal_list;
+		kruskal_list.open("results_kruskal_list.txt");
+
+		ofstream kruskal_matrix;
+		kruskal_matrix.open("results_kruskal_matrix.txt");
+
+		for (int n = 0; n < nodes_to_research_size; n++) {
+			for (int d = 0; d < densities_to_research_size; d++) {
+				cout << "Kruskal N: " << n << " D: " << d << endl;
+				if (kruskal_list && kruskal_matrix) {
+					RunMeasurement(kruskal_list, kruskal_matrix, 10, 50, 100, KRUSKAL);
+				}
+				else {
+					throw exception("Nie mozna uzyskac dostepu do pliku zapisu");
+				}
+			}
+		}
+
+		kruskal_list.close();
+		kruskal_matrix.close();
 	}
 
 	{
