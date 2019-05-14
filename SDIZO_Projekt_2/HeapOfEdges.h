@@ -6,6 +6,7 @@ class HeapOfEdges
 {
 	Edge** tab;
 	int count = 0; //zadeklarowana w pliku iloœæ elementów w tablicy
+	int restorePoint = 0; // wielkoœæ kopca do której zamierzamy powróciæ
 
 	bool searchFromIndex(Edge* val, int index); //funkcja pomocnicza do findValue
 
@@ -21,6 +22,8 @@ public:
 
 	void addElement(Edge* key);
 	void removeElementAtIndex(int index);
+	void setRestorePoint();
+	void restoreHeap();
 	void removeElementByValue(Edge* value);
 
 	bool findValue(Edge* val);

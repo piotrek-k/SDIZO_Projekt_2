@@ -58,24 +58,24 @@ void HeapOfEdges::heapify(int index)
 {
 	int l = this->getLeftChildIndex(index);
 	int r = this->getRightChildIndex(index);
-	int largest = 0;
+	int smallest = 0;
 
-	if (l <= this->getDeclaredSize() && this->tab[l]->weight > this->tab[index]->weight) {
-		largest = l;
+	if (l < this->getDeclaredSize() && this->tab[l]->weight < this->tab[index]->weight) {
+		smallest = l;
 	}
 	else {
-		largest = index;
+		smallest = index;
 	}
 
-	if (r <= this->getDeclaredSize() && this->tab[r]->weight > this->tab[largest]->weight) {
-		largest = r;
+	if (r < this->getDeclaredSize() && this->tab[r]->weight < this->tab[smallest]->weight) {
+		smallest = r;
 	}
 
-	if (largest != index) {
+	if (smallest != index) {
 		Edge* t = this->tab[index];
-		this->tab[index] = this->tab[largest];
-		this->tab[largest] = t;
-		this->heapify(largest);
+		this->tab[index] = this->tab[smallest];
+		this->tab[smallest] = t;
+		this->heapify(smallest);
 	}
 }
 
@@ -90,7 +90,7 @@ void HeapOfEdges::validateParent(int index)
 	int indexOfParent = this->getIndexOfParent(index);
 	Edge* elemValue = this->tab[index];
 	Edge* parentValue = this->tab[indexOfParent];
-	if (indexOfParent >= 0 && indexOfParent != index && elemValue->weight > parentValue->weight) {
+	if (indexOfParent >= 0 && indexOfParent != index && elemValue->weight < parentValue->weight) {
 		this->tab[index] = parentValue;
 		this->tab[indexOfParent] = elemValue;
 		validateParent(indexOfParent);
@@ -102,7 +102,7 @@ void HeapOfEdges::validateParent(int index)
 /// </summary>
 /// <param name="val"></param>
 /// <returns></returns>
-bool HeapOfEdges::findValue(Edge* val)
+bool HeapOfEdges::findValue(Edge * val)
 {
 	return this->searchFromIndex(val, 0);
 }
@@ -129,7 +129,7 @@ bool HeapOfEdges::indexIsValid(int index)
 /// <param name="val"></param>
 /// <param name="index"></param>
 /// <returns></returns>
-bool HeapOfEdges::searchFromIndex(Edge* val, int index)
+bool HeapOfEdges::searchFromIndex(Edge * val, int index)
 {
 	if (index >= this->getDeclaredSize()) {
 		return false;
@@ -149,13 +149,13 @@ bool HeapOfEdges::searchFromIndex(Edge* val, int index)
 /// Dodaje element do kopca
 /// </summary>
 /// <param name="key"></param>
-void HeapOfEdges::addElement(Edge* key)
+void HeapOfEdges::addElement(Edge * key)
 {
 	int i = getDeclaredSize();
 	this->changeDeclaredSize(i + 1);
 	//tab[this->getDeclaredSize()] = key;
 
-	while (i > 0 && this->tab[getIndexOfParent(i)]->weight < key->weight) {
+	while (i > 0 && this->tab[getIndexOfParent(i)]->weight > key->weight) {
 		tab[i] = tab[getIndexOfParent(i)];
 		i = getIndexOfParent(i);
 	}
@@ -172,13 +172,27 @@ void HeapOfEdges::removeElementAtIndex(int index)
 	if (index >= getDeclaredSize()) {
 		throw exception("Podany indeks jest poza zakresem tablicy");
 	}
+	Edge* deletedEdge = tab[index];
 	tab[index] = tab[getDeclaredSize() - 1];
+	tab[getDeclaredSize() - 1] = deletedEdge;
 	changeDeclaredSize(getDeclaredSize() - 1);
 	heapify(index);
 	validateParent(index);
 }
 
-void HeapOfEdges::removeElementByValue(Edge* value)
+// Zapisz aktualn¹ wielkoœæ kopca. Wielkoœæ mo¿e byæ przywrócona przy u¿yciu restoreHeap()
+void HeapOfEdges::setRestorePoint() {
+	this->restorePoint = this->getDeclaredSize();
+}
+
+// Usuwanie wartoœci z kopca zmniejsza³o jedynie wartoœæ count
+// Usuniête wci¹¿ s¹ dostêpne, wystarczy zmieniæ count na poprzedni¹ wartoœæ i zbudowaæ kopiec
+void HeapOfEdges::restoreHeap() {
+	this->count = this->restorePoint;
+	this->buildHeap();
+}
+
+void HeapOfEdges::removeElementByValue(Edge * value)
 {
 	int foundIndex = -1;
 	for (int a = 0; a < this->getDeclaredSize(); a++) {
@@ -202,9 +216,9 @@ void HeapOfEdges::removeElementByValue(Edge* value)
 /// <returns></returns>
 string HeapOfEdges::convertToString()
 {
-	string result;
+	string result = std::to_string(getDeclaredSize()) + ": ";
 	for (int a = 0; a < getDeclaredSize(); a++) {
-		result += std::to_string(tab[a]->weight) + " ";
+		result += std::to_string(tab[a]->from) + " " + std::to_string(tab[a]->to) + " (" + std::to_string(tab[a]->weight) + "); ";
 	}
 	return result;
 }
@@ -245,15 +259,20 @@ int HeapOfEdges::getDeclaredSize()
 /// <param name="newCount"></param>
 void HeapOfEdges::changeDeclaredSize(int newCount)
 {
-	Edge** newTab = new Edge*[newCount];
-	int currentSize = getDeclaredSize();
-	for (int a = 0; a < min(newCount, currentSize); a++) {
-		newTab[a] = this->tab[a];
-	}
+	if (this->count < newCount) {
+		Edge** newTab = new Edge * [newCount];
+		int currentSize = getDeclaredSize();
+		for (int a = 0; a < min(newCount, currentSize); a++) {
+			newTab[a] = this->tab[a];
+		}
 
-	clearHeap();
-	this->count = newCount;
-	this->tab = newTab;
+		clearHeap();
+		this->count = newCount;
+		this->tab = newTab;
+	}
+	else {
+		this->count = newCount;
+	}
 }
 
 void HeapOfEdges::clearHeap() {
@@ -261,7 +280,7 @@ void HeapOfEdges::clearHeap() {
 		delete tab[a];
 	}*/
 	delete tab;
-	tab = new Edge*[1];
+	tab = new Edge * [1];
 	count = 0;
 }
 

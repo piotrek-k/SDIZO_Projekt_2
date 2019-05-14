@@ -20,9 +20,10 @@ protected:
 	void generateNodeStorage();
 	Node** stateOfNodes = NULL;
 
+public:
 	// KRUSKAL
 	HeapOfEdges* edgesHeap = new HeapOfEdges();
-public:
+
 	/*Container(const std::string& fileName, bool isDirected);
 	Container(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);*/
 	Container();

@@ -113,6 +113,7 @@ void Container::generateNodeStorage()
 	stateOfNodes = new Node * [numberOfNodes];
 	for (int a = 0; a < numberOfNodes; a++) {
 		stateOfNodes[a] = new Node(SPECIFIED);
+		stateOfNodes[a]->index = a;
 	}
 
 	//edgesHeap = new HeapOfEdges();
@@ -181,15 +182,22 @@ void Container::RunKruskalSaveElsewhere(Container* targetContainer)
 		stateOfNodes[n]->KruskalUP = new Node(EMPTY);
 	}
 
-	for (int n = 0; n < this->GetNumberOfNodes()-1; n++) {
+	this->edgesHeap->setRestorePoint();
+
+	for (int n = 0; n < this->GetNumberOfNodes() - 1; n++) {
 		// dla wszystkich n-1 krawêdzi
-		Edge* smallestEdge = this->edgesHeap->extractFirst();
-		if (stateOfNodes[smallestEdge->from]->KruskalGetRoot() != stateOfNodes[smallestEdge->to]->KruskalGetRoot()) {
-			// porównywane wêz³y s¹ w ró¿nych drzewach
-			targetContainer->InsertNode(smallestEdge->from, smallestEdge->to, smallestEdge->weight);
-			KruskalUnionSets(stateOfNodes[smallestEdge->from], stateOfNodes[smallestEdge->to]);
-		}
+		Edge* smallestEdge;
+		do {
+			string s = this->edgesHeap->convertToString();
+			smallestEdge = this->edgesHeap->extractFirst();
+		} while (stateOfNodes[smallestEdge->from]->KruskalGetRoot()->index == stateOfNodes[smallestEdge->to]->KruskalGetRoot()->index);
+
+		// porównywane wêz³y s¹ w ró¿nych drzewach
+		targetContainer->InsertNode(smallestEdge->from, smallestEdge->to, smallestEdge->weight);
+		KruskalUnionSets(stateOfNodes[smallestEdge->from], stateOfNodes[smallestEdge->to]);
 	}
+
+	this->edgesHeap->restoreHeap();
 }
 
 ShortestPathsContainer* Container::RunDijkstra(int startingPoint)
