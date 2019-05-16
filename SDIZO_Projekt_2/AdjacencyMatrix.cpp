@@ -62,9 +62,21 @@ void AdjacencyMatrix::declareSize(int numberOfEdges, int numberOfNodes, int addi
 void AdjacencyMatrix::Display(std::ostream& stream)
 {
 	stream << "Wyswietlanie macierzy sasiedztwa: " << endl;
+	stream << "\t";
+	for (int j = 0; j < numberOfNodes; j++) {
+		stream << "[" << j << "]" << "\t";
+	}
+	stream << "\n";
 	for (int i = 0; i < numberOfNodes; i++) {
+		stream << "[" << i << "]" << "\t";
 		for (int j = 0; j < numberOfNodes; j++) {
-			stream << this->matrix[i][j].connection << "(" << this->matrix[i][j].weight << ")" << "\t";
+			if (this->matrix[i][j].connection) {
+				stream << this->matrix[i][j].weight << "\t";
+			}
+			else {
+				stream << "-\t";
+			}
+			
 		}
 		stream << endl;
 	}
