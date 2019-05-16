@@ -49,12 +49,14 @@ public:
 
 	virtual ListMember* GetAllNeighbours(int nodeId) = 0;
 
-	// uruchamia algorytm Prima, zapisuje wynik w podanym Kontenerze
-	void RunPrimSaveElsewhere(int startingPoint, Container* targetContainer);
+	// uruchamia algorytm Prima, zapisuje wynik w podanym Kontenerze, zwraca wagê drzewa
+	int RunPrimSaveElsewhere(int startingPoint, Container* targetContainer);
 
+	// funkcja powi¹zana z algorytmem Kruskala. £¹czy dwa drzewa
 	void KruskalUnionSets(Node* node1, Node* node2);
 
-	void RunKruskalSaveElsewhere(Container* targetContainer);
+	// Uruchamia algorytm Kruskala, zwraca wagê nowego drzewa
+	int RunKruskalSaveElsewhere(Container* targetContainer);
 
 	ShortestPathsContainer* RunDijkstra(int startingPoint);
 

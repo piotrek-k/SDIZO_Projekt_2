@@ -119,7 +119,9 @@ void Container::generateNodeStorage()
 	//edgesHeap = new HeapOfEdges();
 }
 
-void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
+int Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContainer) {
+	int weightOfNewGraph = 0;
+
 	RefreshActivityOfNodes();
 
 	int numOfIterations = 0;
@@ -144,6 +146,7 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 
 		if (minNodeToDisable.IsNotNull()) {
 			targetContainer->InsertNode(sourceNodeIndex, minNodeToDisable.getIndex(), minNodeToDisable.getWeight());
+			weightOfNewGraph += minNodeToDisable.getWeight();
 			this->GetNode(minNodeToDisable.getIndex())->setActiveState(true);
 		}
 		else {
@@ -153,6 +156,8 @@ void Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContain
 
 		numOfIterations++;
 	}
+
+	return weightOfNewGraph;
 }
 
 void Container::KruskalUnionSets(Node* node1, Node* node2)
@@ -174,8 +179,10 @@ void Container::KruskalUnionSets(Node* node1, Node* node2)
 	}
 }
 
-void Container::RunKruskalSaveElsewhere(Container* targetContainer)
+int Container::RunKruskalSaveElsewhere(Container* targetContainer)
 {
+	int weightOfNewGraph = 0;
+
 	for (int n = 0; n < this->GetNumberOfNodes(); n++) {
 		// Ka¿dy wierzcho³ek umieœæ w roz³¹cznym zbiorze
 		// tj. ustal, ¿e Node jest korzeniem
@@ -194,10 +201,13 @@ void Container::RunKruskalSaveElsewhere(Container* targetContainer)
 
 		// porównywane wêz³y s¹ w ró¿nych drzewach
 		targetContainer->InsertNode(smallestEdge->from, smallestEdge->to, smallestEdge->weight);
+		weightOfNewGraph += smallestEdge->weight;
 		KruskalUnionSets(stateOfNodes[smallestEdge->from], stateOfNodes[smallestEdge->to]);
 	}
 
 	this->edgesHeap->restoreHeap();
+
+	return weightOfNewGraph;
 }
 
 ShortestPathsContainer* Container::RunDijkstra(int startingPoint)

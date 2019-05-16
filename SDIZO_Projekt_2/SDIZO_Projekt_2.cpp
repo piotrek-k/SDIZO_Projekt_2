@@ -197,6 +197,8 @@ void finding_mst() {
 	int numberOfNodes; // ile wêz³ów ma mieæ losowy graf?
 	int density; // jaka gêstoœæ grafu?
 	char option;
+	int resultWeightList;
+	int resultWeightMatrix;
 
 	do {
 		try {
@@ -259,25 +261,29 @@ void finding_mst() {
 			case '4':
 				std::cout << "--- Operacje na listach sasiedztwa \n";
 				output_list = (AdjacencyList*)al->GenerateEmptyClone();
-				al->RunPrimSaveElsewhere(0, output_list);
+				resultWeightList = al->RunPrimSaveElsewhere(0, output_list);
 				output_list->Display(cout);
+				std::cout << endl << "Waga MST: " << resultWeightList << endl;
 
 				std::cout << "--- Operacje na macierzach sasiedztwa \n";
 				output_matrix = (AdjacencyMatrix*)am->GenerateEmptyClone();
-				am->RunPrimSaveElsewhere(0, output_matrix);
+				resultWeightMatrix = am->RunPrimSaveElsewhere(0, output_matrix);
 				output_matrix->Display(cout);
+				std::cout << endl << "Waga MST: " << resultWeightMatrix << endl;
 				break;
 
 			case '5':
 				std::cout << "--- Operacje na listach sasiedztwa \n";
 				output_list = (AdjacencyList*)al->GenerateEmptyClone();
-				al->RunKruskalSaveElsewhere(output_list);
+				resultWeightList = al->RunKruskalSaveElsewhere(output_list);
 				output_list->Display(cout);
+				std::cout << endl << "Waga MST: " << resultWeightList << endl;
 
 				std::cout << "--- Operacje na macierzach sasiedztwa \n";
 				output_matrix = (AdjacencyMatrix*)am->GenerateEmptyClone();
-				am->RunKruskalSaveElsewhere(output_matrix);
+				resultWeightMatrix = am->RunKruskalSaveElsewhere(output_matrix);
 				output_matrix->Display(cout);
+				std::cout << endl << "Waga MST: " << resultWeightMatrix << endl;
 				break;
 			}
 		}
