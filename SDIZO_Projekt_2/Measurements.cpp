@@ -22,15 +22,24 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 	bool directed = false;
 	TimeCounter* adjMatrixCounter = new TimeCounter();
 	TimeCounter* adjListCounter = new TimeCounter();
+	string typeName = "";
 
 	switch (type) {
 	case DIJKSTRA:
+		directed = true;
+		typeName = "DIJKSTRA";
+		break;
 	case BELLMANFORD:
 		directed = true;
+		typeName = "BELLMANFORD";
 		break;
 	case PRIM:
+		directed = false;
+		typeName = "PRIM";
+		break;
 	case KRUSKAL:
 		directed = false;
+		typeName = "KRUSKAL";
 		break;
 	}
 
@@ -53,6 +62,8 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 			adjMatrixCounter->EndSingleMeasurement();
 			delete output_am;
 
+			break;
+
 		case KRUSKAL:
 			output_al = (AdjacencyList*)al->GenerateEmptyClone();
 			adjListCounter->StartNextMeasurement();
@@ -65,6 +76,8 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 			am->RunKruskalSaveElsewhere(output_am);
 			adjMatrixCounter->EndSingleMeasurement();
 			delete output_am;
+
+			break;
 
 		case DIJKSTRA:
 			adjMatrixCounter->StartNextMeasurement();
@@ -89,32 +102,38 @@ void RunMeasurement(std::ostream& stream1, std::ostream& stream2, int numberOfNo
 		}
 	}
 
-	stream1 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjListCounter->Summarize() << std::endl;
-	stream2 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjMatrixCounter->Summarize() << std::endl;
+	stream1 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjListCounter->Summarize() << "\tL\t" << typeName << std::endl;
+	stream2 << numberOfNodes << "\t" << density << "\t" << howManyTimes << "\t" << adjMatrixCounter->Summarize() << "\tM\t" << typeName << std::endl;
 
 	delete al;
 	delete am;
 }
 
 void RunAllMeasurements() {
-	int nodes_to_research[] = { 10, 100, 200 };
-	const int nodes_to_research_size = 3;
+	int find_path_nodes_to_research[] = { 10, 20, 30, 40, 50 };
+	int MST_nodes_to_research[] = { 10, 20, 30, 40, 50 };
+	const int nodes_to_research_size = 5;
 	int densities_to_research[] = { 25, 50, 75, 99 };
 	const int densities_to_research_size = 4;
 
+	int how_many_times = 100;
+
+	ofstream results_file;
+	results_file.open("RESULTS.txt");
+
 	{
-		ofstream dijkstra_list;
+		/*ofstream dijkstra_list;
 		dijkstra_list.open("results_dijkstra_list.txt");
 
 		ofstream dijkstra_matrix;
-		dijkstra_matrix.open("results_dijkstra_matrix.txt");
+		dijkstra_matrix.open("results_dijkstra_matrix.txt");*/
 
 		for (int n = 0; n < nodes_to_research_size; n++) {
 			for (int d = 0; d < densities_to_research_size; d++) {
 				cout << "Dijkstra N: " << n << " D: " << d << endl;
 
-				if (dijkstra_list && dijkstra_matrix) {
-					RunMeasurement(dijkstra_list, dijkstra_matrix, nodes_to_research[n], densities_to_research[d], 100, DIJKSTRA);
+				if (results_file) {
+					RunMeasurement(results_file, results_file, find_path_nodes_to_research[n], densities_to_research[d], how_many_times, DIJKSTRA);
 				}
 				else {
 					throw exception("Nie mozna uzyskac dostepu do pliku zapisu");
@@ -122,22 +141,22 @@ void RunAllMeasurements() {
 			}
 		}
 
-		dijkstra_list.close();
-		dijkstra_matrix.close();
+		/*dijkstra_list.close();
+		dijkstra_matrix.close();*/
 	}
 
 	{
-		ofstream prim_list;
+		/*ofstream prim_list;
 		prim_list.open("results_prim_list.txt");
 
 		ofstream prim_matrix;
-		prim_matrix.open("results_prim_matrix.txt");
+		prim_matrix.open("results_prim_matrix.txt");*/
 
 		for (int n = 0; n < nodes_to_research_size; n++) {
 			for (int d = 0; d < densities_to_research_size; d++) {
 				cout << "Prim N: " << n << " D: " << d << endl;
-				if (prim_list && prim_matrix) {
-					RunMeasurement(prim_list, prim_matrix, 10, 50, 100, PRIM);
+				if (results_file) {
+					RunMeasurement(results_file, results_file, MST_nodes_to_research[n], densities_to_research[d], how_many_times, PRIM);
 				}
 				else {
 					throw exception("Nie mozna uzyskac dostepu do pliku zapisu");
@@ -145,22 +164,22 @@ void RunAllMeasurements() {
 			}
 		}
 
-		prim_list.close();
-		prim_matrix.close();
+		/*prim_list.close();
+		prim_matrix.close();*/
 	}
 
 	{
-		ofstream kruskal_list;
+		/*ofstream kruskal_list;
 		kruskal_list.open("results_kruskal_list.txt");
 
 		ofstream kruskal_matrix;
 		kruskal_matrix.open("results_kruskal_matrix.txt");
-
+*/
 		for (int n = 0; n < nodes_to_research_size; n++) {
 			for (int d = 0; d < densities_to_research_size; d++) {
 				cout << "Kruskal N: " << n << " D: " << d << endl;
-				if (kruskal_list && kruskal_matrix) {
-					RunMeasurement(kruskal_list, kruskal_matrix, 10, 50, 100, KRUSKAL);
+				if (results_file) {
+					RunMeasurement(results_file, results_file, MST_nodes_to_research[n], densities_to_research[d], how_many_times, KRUSKAL);
 				}
 				else {
 					throw exception("Nie mozna uzyskac dostepu do pliku zapisu");
@@ -168,22 +187,22 @@ void RunAllMeasurements() {
 			}
 		}
 
-		kruskal_list.close();
-		kruskal_matrix.close();
+		/*kruskal_list.close();
+		kruskal_matrix.close();*/
 	}
 
 	{
-		ofstream bf_list;
+		/*ofstream bf_list;
 		bf_list.open("results_bf_list.txt");
 
 		ofstream bf_matrix;
-		bf_matrix.open("results_bf_matrix.txt");
+		bf_matrix.open("results_bf_matrix.txt");*/
 
 		for (int n = 0; n < nodes_to_research_size; n++) {
 			for (int d = 0; d < densities_to_research_size; d++) {
 				cout << "BF N: " << n << " D: " << d << endl;
-				if (bf_list && bf_matrix) {
-					RunMeasurement(bf_list, bf_matrix, 10, 50, 100, BELLMANFORD);
+				if (results_file) {
+					RunMeasurement(results_file, results_file, find_path_nodes_to_research[n], densities_to_research[d], how_many_times, BELLMANFORD);
 				}
 				else {
 					throw exception("Nie mozna uzyskac dostepu do pliku zapisu");
@@ -191,7 +210,9 @@ void RunAllMeasurements() {
 			}
 		}
 
-		bf_list.close();
-		bf_matrix.close();
+		/*bf_list.close();
+		bf_matrix.close();*/
 	}
+
+	results_file.close();
 }

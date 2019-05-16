@@ -25,12 +25,14 @@ AdjacencyMatrix::~AdjacencyMatrix()
 	this->Clean();
 }
 
-void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight)
+void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap)
 {
 	matrix[initialNode][endNode].connection = true;
 	matrix[initialNode][endNode].weight = weight;
 	matrix[initialNode][endNode].initialized = true;
-	edgesHeap->addElement(new Edge(initialNode, endNode, weight));
+	if (enableEdgesHeap) {
+		edgesHeap->addElement(new Edge(initialNode, endNode, weight));
+	}
 	if (!isDirected) {
 		matrix[endNode][initialNode].connection = 1;
 		matrix[endNode][initialNode].weight = weight;

@@ -6,7 +6,7 @@ AdjacencyList::AdjacencyList()
 {
 }
 
-AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected){
+AdjacencyList::AdjacencyList(const std::string& fileName, bool isDirected) {
 	this->loadFromFile(fileName, isDirected);
 	this->isDirected = isDirected;
 	generateNodeStorage();
@@ -25,12 +25,14 @@ AdjacencyList::~AdjacencyList()
 	this->Clean();
 }
 
-void AdjacencyList::InsertNode(int initialNode, int endNode, int weight)
+void AdjacencyList::InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap)
 {
 	lists[initialNode]->AddAtTheEnd(endNode, weight);
 
 	//KRUSKAL 
-	edgesHeap->addElement(new Edge(initialNode, endNode, weight));
+	if (enableEdgesHeap) {
+		edgesHeap->addElement(new Edge(initialNode, endNode, weight));
+	}
 	//this->lastEdgeKey++;
 
 	if (!this->isDirected) {
@@ -79,7 +81,7 @@ Node* AdjacencyList::LowestCostNeighbour(int index, bool canBeDisabled)
 				lowestCostElem = (Node*)elem;
 			}
 		}
-		
+
 		elem = elem->getNext();
 	}
 

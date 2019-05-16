@@ -60,6 +60,10 @@ void generateRandomGraph(int numberOfNodes, int density, AdjacencyList*& al, Adj
 	srand(time(0));
 	int maxNumberOfEdges = numberOfNodes * (numberOfNodes - 1) / 2;
 	int edgesToCreate = std::floor(maxNumberOfEdges * (density / 100.0));
+	int minNumberOfEdges = numberOfNodes - 1;
+	if (edgesToCreate < minNumberOfEdges) {
+		throw exception("Graf o podanej gestosci nie bylby grafem spojnym. Podaj inne wartosci.");
+	}
 	int weightRange = 10;
 
 	al = new AdjacencyList(edgesToCreate, numberOfNodes, 0, directed);

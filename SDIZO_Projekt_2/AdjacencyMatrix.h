@@ -13,7 +13,7 @@ public:
 	AdjacencyMatrix(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);
 	~AdjacencyMatrix();
 
-	void InsertNode(int initialNode, int endNode, int weight);
+	void InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap = true);
 	void declareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
 	void Display(std::ostream& stream);
 

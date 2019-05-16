@@ -188,7 +188,7 @@ void Container::RunKruskalSaveElsewhere(Container* targetContainer)
 		// dla wszystkich n-1 krawêdzi
 		Edge* smallestEdge;
 		do {
-			string s = this->edgesHeap->convertToString();
+			//string s = this->edgesHeap->convertToString();
 			smallestEdge = this->edgesHeap->extractFirst();
 		} while (stateOfNodes[smallestEdge->from]->KruskalGetRoot()->index == stateOfNodes[smallestEdge->to]->KruskalGetRoot()->index);
 

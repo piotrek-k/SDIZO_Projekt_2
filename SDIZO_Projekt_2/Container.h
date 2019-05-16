@@ -30,7 +30,7 @@ public:
 	~Container();
 
 	// Utwórz po³¹czenie miêdzy wêz³em initialNode a wêz³em endNode o wadze weight
-	virtual void InsertNode(int initialNode, int endNode, int weight) = 0;
+	virtual void InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap = true) = 0;
 	// Wyœwietl zawartoœæ kontenera
 	virtual void Display(std::ostream& stream) = 0;
 
