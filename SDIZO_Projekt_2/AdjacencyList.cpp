@@ -25,7 +25,7 @@ AdjacencyList::~AdjacencyList()
 	this->Clean();
 }
 
-void AdjacencyList::InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap)
+void AdjacencyList::InsertEdge(int initialNode, int endNode, int weight, bool enableEdgesHeap)
 {
 	lists[initialNode]->AddAtTheEnd(endNode, weight);
 

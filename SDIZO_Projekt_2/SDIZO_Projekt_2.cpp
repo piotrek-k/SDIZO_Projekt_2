@@ -77,8 +77,8 @@ void generateRandomGraph(int numberOfNodes, int density, AdjacencyList*& al, Adj
 	// generowanie drzewa rozpinajacego
 	for (int n = 0; n < numberOfNodes - 1 && edgesToCreate > 0; n++) {
 		int newWeight = (rand() % weightRange) + 1;
-		al->InsertNode(n, n + 1, newWeight);
-		am->InsertNode(n, n + 1, newWeight);
+		al->InsertEdge(n, n + 1, newWeight);
+		am->InsertEdge(n, n + 1, newWeight);
 		edgesToCreate--;
 	}
 
@@ -92,8 +92,8 @@ void generateRandomGraph(int numberOfNodes, int density, AdjacencyList*& al, Adj
 		} while (am->DoesConnectionExist(randomNode1, randomNode2) || randomNode1 == randomNode2);
 
 		int newWeight = (rand() % weightRange) + 1;
-		al->InsertNode(randomNode1, randomNode2, newWeight);
-		am->InsertNode(randomNode1, randomNode2, newWeight);
+		al->InsertEdge(randomNode1, randomNode2, newWeight);
+		am->InsertEdge(randomNode1, randomNode2, newWeight);
 	}
 }
 

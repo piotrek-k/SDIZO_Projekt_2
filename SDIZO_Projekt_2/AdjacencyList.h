@@ -17,7 +17,7 @@ public:
 	AdjacencyList(int numberOfEdges, int numberOfNodes, int additionalParam, bool isDirected);
 	~AdjacencyList();
 
-	void InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap = true);
+	void InsertEdge(int initialNode, int endNode, int weight, bool enableEdgesHeap = true);
 	void declareSize(int numberOfEdges, int numberOfNodes, int additionalParam);
 	void Display(std::ostream& stream);
 	Container* GenerateEmptyClone();

@@ -25,7 +25,7 @@ AdjacencyMatrix::~AdjacencyMatrix()
 	this->Clean();
 }
 
-void AdjacencyMatrix::InsertNode(int initialNode, int endNode, int weight, bool enableEdgesHeap)
+void AdjacencyMatrix::InsertEdge(int initialNode, int endNode, int weight, bool enableEdgesHeap)
 {
 	matrix[initialNode][endNode].connection = true;
 	matrix[initialNode][endNode].weight = weight;

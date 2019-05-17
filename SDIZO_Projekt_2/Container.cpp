@@ -64,7 +64,7 @@ void Container::loadFromFile(const std::string& fileName, bool isDirected)
 					firstLine = false;
 				}
 				else {
-					this->InsertNode(values[0], values[1], values[2]);
+					this->InsertEdge(values[0], values[1], values[2]);
 				}
 			}
 			myfile.close();
@@ -145,7 +145,7 @@ int Container::RunPrimSaveElsewhere(int startingPoint, Container* targetContaine
 		}
 
 		if (minNodeToDisable.IsNotNull()) {
-			targetContainer->InsertNode(sourceNodeIndex, minNodeToDisable.getIndex(), minNodeToDisable.getWeight());
+			targetContainer->InsertEdge(sourceNodeIndex, minNodeToDisable.getIndex(), minNodeToDisable.getWeight());
 			weightOfNewGraph += minNodeToDisable.getWeight();
 			this->GetNode(minNodeToDisable.getIndex())->setActiveState(true);
 		}
@@ -200,7 +200,7 @@ int Container::RunKruskalSaveElsewhere(Container* targetContainer)
 		} while (stateOfNodes[smallestEdge->from]->KruskalGetRoot()->index == stateOfNodes[smallestEdge->to]->KruskalGetRoot()->index);
 
 		// porównywane wêz³y s¹ w ró¿nych drzewach
-		targetContainer->InsertNode(smallestEdge->from, smallestEdge->to, smallestEdge->weight);
+		targetContainer->InsertEdge(smallestEdge->from, smallestEdge->to, smallestEdge->weight);
 		weightOfNewGraph += smallestEdge->weight;
 		KruskalUnionSets(stateOfNodes[smallestEdge->from], stateOfNodes[smallestEdge->to]);
 	}
