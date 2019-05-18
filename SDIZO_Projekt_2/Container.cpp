@@ -288,7 +288,7 @@ ShortestPathsContainer* Container::RunBellmanFord(int startingPoint)
 	for (int n = 0; n < this->GetNumberOfNodes() - 1; n++) { // wykonaj pêtlê n-1 razy
 		bool test = true; // czy coœ zosta³o zmienione?
 
-		for (int x = 0; x < this->GetNumberOfNodes() - 1; x++) {
+		for (int x = 0; x < this->GetNumberOfNodes(); x++) {
 			ListMember* neighbour = this->GetAllNeighbours(x);
 			do {
 				if (d[neighbour->getIndex()] > d[x] + neighbour->getWeight()) {
@@ -298,13 +298,12 @@ ShortestPathsContainer* Container::RunBellmanFord(int startingPoint)
 				}
 				neighbour = neighbour->getNext();
 
-			} while (neighbour->IsNotNull());
-
-			if (test == true) {
-				//ZAKOÑCZONO POMYŒLNIE
-				ShortestPathsContainer* result = new ShortestPathsContainer(d, p, this->GetNumberOfNodes());
-				return result;
-			}
+			} while (neighbour->IsNotNull());	
+		}
+		if (test == true) {
+			//ZAKOÑCZONO POMYŒLNIE
+			ShortestPathsContainer* result = new ShortestPathsContainer(d, p, this->GetNumberOfNodes());
+			return result;
 		}
 	}
 
