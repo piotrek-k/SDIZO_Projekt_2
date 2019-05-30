@@ -230,7 +230,8 @@ ShortestPathsContainer* Container::RunDijkstra(int startingPoint)
 	d[startingPoint] = 0;
 
 	for (int w = 0; w < this->GetNumberOfNodes(); w++) {
-		// znajdü najmniejszπ wartoúÊ w tablicy d, ktÛra odpowiada wierzcho≥kowi w zbiorze Q
+		// w kaødej iteracji pobierz wÍze≥ ze zbioru Q o najmniejszym koszcie dojúcia
+
 		int minVal = MAXINT;
 		int minIndex = -1;
 		for (int x = 0; x < this->GetNumberOfNodes(); x++) {
@@ -248,6 +249,9 @@ ShortestPathsContainer* Container::RunDijkstra(int startingPoint)
 			this->GetNode(minIndex)->active = true; // przeniesienie wierzcho≥ka do S
 		}
 
+		// ZNAJDè WSZYSTKICH S•SIAD”W WYBRANEGO W Z£A
+		// POR”WNAJ ICH POPRZEDNIE KOSZTY DOJåCIA Z KOSZTEM DOJåCIA WIERZCHO£KA + WAG• KRAW DZI
+
 		ListMember* neighbourToCheck = this->GetAllNeighbours(minIndex);
 
 		while (true) {
@@ -255,6 +259,8 @@ ShortestPathsContainer* Container::RunDijkstra(int startingPoint)
 				if (!this->GetNode(neighbourToCheck->index)->active) {
 					// nie ma go w zbiorze Q		
 					if (d[neighbourToCheck->index] > d[minIndex] + neighbourToCheck->weight) {
+						// znaleziono lepszπ drogÍ
+						// aktualizuj tablice
 						d[neighbourToCheck->index] = d[minIndex] + neighbourToCheck->weight;
 						p[neighbourToCheck->index] = minIndex;
 					}
@@ -288,6 +294,7 @@ ShortestPathsContainer* Container::RunBellmanFord(int startingPoint)
 	for (int n = 0; n < this->GetNumberOfNodes() - 1; n++) { // wykonaj pÍtlÍ n-1 razy
 		bool test = true; // czy coú zosta≥o zmienione?
 
+		// DLA KAØDEGO WIERZCHO£KA SPRAWDè PO£•CZENIA Z JEGO S•SIADAMI
 		for (int x = 0; x < this->GetNumberOfNodes(); x++) {
 			ListMember* neighbour = this->GetAllNeighbours(x);
 			do {
@@ -301,13 +308,17 @@ ShortestPathsContainer* Container::RunBellmanFord(int startingPoint)
 			} while (neighbour->IsNotNull());	
 		}
 		if (test == true) {
-			//ZAKO—CZONO POMYåLNIE
+			//W BIEØ•CEJ ITERACJI NIE DOKONANO ZMIAN
+			//ZWR”∆ WYNIK
 			ShortestPathsContainer* result = new ShortestPathsContainer(d, p, this->GetNumberOfNodes());
 			return result;
 		}
 	}
 
-	// SPRAWDZENIE ISTNIENIA CYKLU
+	// SPRAWDZENIE ISTNIENIA CYKLU UJEMNEGO
+	// POWYØSZY KOD POWINIEN ZAGWARANTOWA∆ MINIMALN• DROG 
+	// JEØELI POWT”RZYMY TEN ALGORYTM I OKAØE SI , ØE POJAWI£A SI  MOØLIWA AKTUALIZACJA DROGI
+	// ZNACZY TO ØE ISTNIEJE CYKL UJEMNY I ALGORYTM DZIA£A£BY W NIESKO—CZONOå∆
 	for (int x = 0; x < this->GetNumberOfNodes() - 1; x++) {
 		ListMember* neighbour = this->GetAllNeighbours(x);
 		do {
